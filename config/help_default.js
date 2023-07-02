@@ -44,25 +44,10 @@ export const helpList = [{
     icon: 132,
     title: '#code [语言][回车][语句]',
     desc: '模拟各种语言运行，不会影响本地'
-  }]
-}, {
-  group: '作图功能',
-  list: [{
-  icon: 126,
-  title: '拍[@某人|qq号]',
-  desc: '拍拍对方的头像'
   }, {
-  icon: 126,
-  title: '咬[@某人|qq号]',
-  desc: '咬对方的头像'
-  }, {
-  icon: 126,
-  title: '捣[@某人|qq号]',
-  desc: '捣对方的头像'
-  }, {
-  icon: 126,
-  title: '顶[@某人|qq号]',
-  desc: '顶对方的头像'
+    icon: 72,
+    title: '#更新(提瓦特)小助手抽卡记录',
+    desc: '更新并获取微信小程序"提瓦特小助手"中历史抽卡记录'
   }]
 }, {
   group: '管理命令，仅主人可用',
@@ -71,5 +56,9 @@ export const helpList = [{
     icon: 85,
     title: '#执行sh[回车][sh指令]',
     desc: '远程执行sh指令'
+  }, list: [{
+    icon: 85,
+    title: '#(强制)更新天如插件',
+    desc: '更新插件本体'
   }]
 }]

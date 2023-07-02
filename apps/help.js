@@ -15,7 +15,7 @@ export class help extends plugin {
 			priority: 100,
 			rule: [
 				{
-					reg: "^#?(天如|TianRu)(命令|帮助|菜单|help|说明|功能|指令|使用说明)$",
+					reg: "^#?(天如|(T|t)ian(R|r)u)(命令|帮助|菜单|help|说明|功能|指令|使用说明)$",
 					fnc: 'help'
 				},
                 {

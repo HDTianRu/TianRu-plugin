@@ -4,7 +4,6 @@
 
 #### 安装教程
 
-使用github
 cd至plugins目录执行以下指令
 ```
 git clone https://github.com/HDTianRu/TianRu-plugin

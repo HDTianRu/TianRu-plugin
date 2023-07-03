@@ -65,15 +65,15 @@ export class update extends plugin {
    * @returns
    */
   async runUpdate(isForce) {
-    let command = "git -C ./plugins/expand-plugin/ pull --no-rebase";
+    let command = "git -C ./plugins/TianRu-plugin/ pull --no-rebase";
     if (isForce) {
-      command = `git -C ./plugins/expand-plugin/ checkout . && ${command}`;
+      command = `git -C ./plugins/TianRu-plugin/ checkout . && ${command}`;
       this.e.reply("正在执行强制更新操作，请稍等");
     } else {
       this.e.reply("正在执行更新操作，请稍等");
     }
     /** 获取上次提交的commitId，用于获取日志时判断新增的更新日志 */
-    this.oldCommitId = await this.getcommitId("expand-plugin");
+    this.oldCommitId = await this.getcommitId("TianRu-plugin");
     uping = true;
     let ret = await this.execSync(command);
     uping = false;
@@ -85,7 +85,7 @@ export class update extends plugin {
     }
 
     /** 获取插件提交的最新时间 */
-    let time = await this.getTime("expand-plugin");
+    let time = await this.getTime("TianRu-plugin");
 
     if (/(Already up[ -]to[ -]date|已经是最新的)/.test(ret.stdout)) {
       await this.reply(`天如插件已经是最新版本\n最后更新时间：${time}`);
@@ -93,7 +93,7 @@ export class update extends plugin {
       await this.reply(`天如插件\n最后更新时间：${time}`);
       this.isUp = true;
       /** 获取天如组件的更新日志 */
-      let log = await this.getLog("expand-plugin");
+      let log = await this.getLog("TianRu-plugin");
       await this.reply(log);
     }
 
@@ -136,7 +136,7 @@ export class update extends plugin {
 
     let end = "";
     end =
-      "更多详细信息，请前往gitee查看\nhttps://gitee.com/SmallK111407/expand-plugin/blob/master/CHANGELOG.md";
+      "更多详细信息，请前往github查看";
 
     log = await this.makeForwardMsg(`天如插件更新日志，共${line}条`, log, end);
 

@@ -53,6 +53,14 @@ export const helpList = [{
   group: '管理命令，仅主人可用',
   auth: 'master',
   list: [{
+    icon: 145,
+    title: '#让我看看[抽卡|常驻|武器][QQ号]',
+    desc: '偷看群u抽卡记录'
+  }, {
+    icon: 135,
+    title: '#我是[QQ号][回车][指令]',
+    desc: '模拟群uQQ号执行指令'
+  }, {
     icon: 85,
     title: '#执行sh[回车][sh指令]',
     desc: '远程执行sh指令'

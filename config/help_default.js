@@ -64,7 +64,7 @@ export const helpList = [{
     icon: 85,
     title: '#执行sh[回车][sh指令]',
     desc: '远程执行sh指令'
-  }, list: [{
+  }, {
     icon: 85,
     title: '#(强制)更新天如插件',
     desc: '更新插件本体'

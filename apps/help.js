@@ -30,14 +30,6 @@ async help (e) {
 
   let custom = {}
   let help = {}
-  if (fs.existsSync(`${helpPath}/help-cfg.js`)) {
-    console.log('TianRu-plugin: 检测到存在help-cfg.js配置\n建议将help-cfg.js移为config/help.js或重新复制config/help_default.js进行配置~')
-    help = await import(`file://${helpPath}/help-cfg.js?version=${new Date().getTime()}`)
-  } else if (fs.existsSync(`${helpPath}/help-list.js`)) {
-    console.log('TianRu-plugin: 检测到存在help-list.js配置，建议将help-list.js移为config/help.js或重新复制config/help_default.js进行配置~')
-    help = await import(`file://${helpPath}/help-list.js?version=${new Date().getTime()}`)
-  }
-
   let { diyCfg, sysCfg } = await Data.importCfg('help')
 
   // 兼容一下旧字段

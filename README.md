@@ -4,9 +4,27 @@
 
 #### 安装教程
 
+首先进入plugins目录  
+
+##### 从gitee安装
+```bash
+git clone https://gitee.com/HDTianRu/TianRu-plugin.git
+```
+
 ##### 从github安装
 ```bash
-git clone https://github.com/HDTianRu/TianRu-plugin
+git clone https://github.com/HDTianRu/TianRu-plugin.git
+```
+
+##### 安装依赖
+如果遇到缺少qrcode依赖无法加载的  
+进入yunzai目录执行  
+```bash
+pnpm install -P
+```
+如果没有pnpm可以改为npm或通过以下指令安装
+```bash
+npm install pnpm -g
 ```
 
 #### 使用说明

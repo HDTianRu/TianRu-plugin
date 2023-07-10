@@ -1,0 +1,14 @@
+{
+  "name": "TianRu-plugin",
+  "version": "1.1.4",
+  "author": "TianRu",
+  "description": "A plugin for Yunzai",
+  "type": "module",
+  "scripts": {},
+  "dependencies": {
+    "qrcode": "^1.5.3"
+  },
+  "pnpm": {
+    "patchedDependencies": {}
+  }
+}

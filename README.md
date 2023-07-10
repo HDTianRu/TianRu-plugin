@@ -33,3 +33,8 @@ git clone https://github.com/HDTianRu/TianRu-plugin
 "米哈游登录" 功能搬运自"TRSS-plugin"：https://Yunzai.TRSS.me
 
 "homo" 功能部分代码来自：https://github.com/itorr/homo
+
+#### 其他
+有问题提issue或联系我QQ：3291691454
+提交发pull request
+最后希望能给项目点个star~

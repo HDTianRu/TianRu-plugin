@@ -1,5 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import Gacha from '../../miao-plugin/apps/gacha/Gacha.js'
+import {getUid} from '../models/utils.js'
 
 export class example extends plugin {
   constructor () {
@@ -30,7 +31,7 @@ export class example extends plugin {
     return true
     }
     let reg = /(全部|抽卡|抽奖|角色|武器|常驻|up|版本)+池?(记录|祈愿|分析|统计)/
-    let ret = reg.exec(e.msg)
+    let ret = reg.exec(e.toString())
     if (!ret) return true
     let QQreg = /[1-9][0-9]{4,12}/
     let QQret = QQreg.exec(e.toString())
@@ -39,8 +40,8 @@ export class example extends plugin {
     e.original_msg = e.msg
     e.user_id = QQret[0].toString()
     e.at = 0
-    e.uid = 0
-    if (/(全部|抽卡|抽奖|角色|武器|常驻|up|版本)+池?(统计)/.test(msg)) Gacha.stat(e)
+    e.uid = await getUid(e)
+    if (/(全部|抽卡|抽奖|角色|武器|常驻|up|版本)+池?(统计)/.test(e.msg)) Gacha.stat(e)
     else Gacha.detail(e)
     return true;
   }

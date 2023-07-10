@@ -1,1 +1,2 @@
-picType: "pic"
+#pic或url，但无论填的什么，带R18自动url模式
+picType: "url"

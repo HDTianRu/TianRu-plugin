@@ -33,7 +33,7 @@ export const helpList = [{
     desc: '把一个数字变得恶臭'
   }, {
     icon: 71,
-    title: '#来[数量]张{标签}涩图',
+    title: '#来[数量]张{标签 {R18}}涩图',
     desc: '获取涩图'
   }, {
     icon: 163,
@@ -45,8 +45,12 @@ export const helpList = [{
     desc: '模拟各种语言运行，不会影响本地'
   }, {
     icon: 72,
-    title: '#更新(提瓦特)小助手抽卡记录',
+    title: '#更新小助手抽卡记录',
     desc: '更新并获取微信小程序"提瓦特小助手"中历史抽卡记录'
+  }, {
+    icon: 36,
+    title: '#米哈游登录',
+    desc: '私聊使用，获取stoken与cookie'
   }]
 }, {
   group: '管理命令，仅主人可用',

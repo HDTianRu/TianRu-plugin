@@ -8,12 +8,12 @@
 
 ##### 从gitee安装
 ```bash
-git clone https://gitee.com/HDTianRu/TianRu-plugin.git
+git clone --depth=1 https://gitee.com/HDTianRu/TianRu-plugin.git
 ```
 
 ##### 从github安装
 ```bash
-git clone https://github.com/HDTianRu/TianRu-plugin.git
+git clone --depth=1 https://github.com/HDTianRu/TianRu-plugin.git
 ```
 
 ##### 安装依赖
@@ -22,7 +22,7 @@ git clone https://github.com/HDTianRu/TianRu-plugin.git
 ```bash
 pnpm install -P
 ```
-如果没有pnpm可以改为npm或通过以下指令安装
+如果没有pnpm可以先通过以下指令安装pnpm
 ```bash
 npm install pnpm -g
 ```

@@ -1,3 +1,9 @@
+# 天如插件
+
+### 访问量
+
+[![访问量](https://profile-counter.glitch.me/TianRu-plugin/count.svg)](https://github.com/HDTianRu/TianRu-plugin)
+
 #### 介绍
 
 一个自用的yunzai的插件
@@ -45,14 +51,20 @@ npm install pnpm -g
 |#米哈游登录|获取stoken和cookie，搬运自TRSS-plugin|
 
 
-###### 其中
+##### 其中
 "更新提瓦特小助手抽卡记录" 功能需同时安装"xiaoyao-cvs-plugin"：https://gitee.com/Ctrlcvs/xiaoyao-cvs-plugin.git  
 
 "米哈游登录" 功能搬运自"TRSS-plugin"：https://Yunzai.TRSS.me  
 
 "homo" 功能部分代码来自：https://github.com/itorr/homo  
 
+
 #### 其他
 有问题提issue或联系我QQ：3291691454  
+交流群：893157055  
 提交发pull request  
 最后希望能给项目点个star~
+
+#### 项目链接
+github：[https://github.com/HDTianRu/TianRu-plugin](https://github.com/HDTianRu/TianRu-plugin)  
+gitee：[https://gitee.com/HDTianRu/TianRu-plugin](https://gitee.com/HDTianRu/TianRu-plugin)

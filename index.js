@@ -22,4 +22,5 @@ for (let i in files) {
   apps[name] = ret[i].value[Object.keys(ret[i].value)[0]]
 }
 logger.mark("天如插件载入完毕")
+logger.mark("交流群 893157055")
 export { apps }

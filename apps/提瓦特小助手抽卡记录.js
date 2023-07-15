@@ -2,8 +2,9 @@ import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import lodash from 'lodash'
 import GachaLog from '../../genshin/model/gachaLog.js'
-import moment from 'moment';
+import moment from 'moment'
 import User from "../../xiaoyao-cvs-plugin/model/user.js"
+import common from '../../../lib/common/common.js'
 
 export class QRCode extends plugin {
   constructor() {
@@ -65,17 +66,20 @@ export class QRCode extends plugin {
     if (!data) return false
     /** 保存json */
     let msg = []
+    let gachLog = new GachaLog(this.e)
+    gachLog.uid = e.uid
     for (let type in data) {
       if (!this.typeName[type]) continue
-      let gachLog = new GachaLog(this.e)
-      gachLog.uid = e.uid
       gachLog.type = type
-      gachLog.writeJson(data[type])
+      let log = gachaLog.readJson()
+      let finalJson = mergeJson(log.list, data[type])
+      gachLog.writeJson(finalJson)
 
-      msg.push(`${this.typeName[type]}记录：${data[type].length}条`)
+      msg.push(`${this.typeName[type]}记录：${data[type].length}条，现共${finalJson.length}条`)
     }
 
-    await this.e.reply(`导入成功\n${msg.join('\n')}`)
+    msg.push("导入成功")
+    await this.e.reply(common.makeForwardMsg(e,msg))
   }
 }
 
@@ -136,3 +140,13 @@ export class QRCode extends plugin {
 
     return data
   }
+
+function mergeJson(json,jsonNew) {
+  function unique(arr){
+    const res = new Map()
+    return arr.filter((a) => !res.has(a.id) && res.set(a.id,1))
+  }
+  return unique(json.concat(jsonNew)).sort((a,b) => {
+    return Number(b.id) - Number(a.id)
+  })
+}

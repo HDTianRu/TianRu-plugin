@@ -23,4 +23,8 @@ for (let i in files) {
 }
 logger.mark("天如插件载入完毕")
 logger.mark("交流群 893157055")
+logger.info(" ╱|、")
+logger.info("(˚ˎ 。7")
+logger.info(" |、˜〵")
+logger.info("じしˍ,)ノ")
 export { apps }

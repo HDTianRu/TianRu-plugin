@@ -1,5 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import {getUid} from '../models/utils.js'
+import Runtime from '../../../lib/plugins/runtime.js'
 
 export class example extends plugin {
   constructor () {
@@ -50,11 +51,9 @@ logObj(obj) {
     e.original_msg = e.msg
     e.user_id = QQret[0].toString() * 1
     e.at = 0
+    await Runtime.init(e)
+    e.sender = e.group.pickMember(e.user_id)
     e.uid = await getUid(e)
-    /*
-    咕咕咕，还没搞明白这些东西，正在研究
-    this.logObj(e.runtime.user)
-    this.logObj(e.user.mysUsers)*/
     return false
   }
 }

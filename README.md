@@ -52,7 +52,7 @@ npm install pnpm -g
 
 
 ##### 其中
-"更新提瓦特小助手抽卡记录" 功能需同时安装"xiaoyao-cvs-plugin"：https://gitee.com/Ctrlcvs/xiaoyao-cvs-plugin.git  
+(非必须)"更新提瓦特小助手抽卡记录" 功能推荐同时安装"xiaoyao-cvs-plugin"：https://gitee.com/Ctrlcvs/xiaoyao-cvs-plugin.git  
 
 "米哈游登录" 功能搬运自"TRSS-plugin"：https://Yunzai.TRSS.me  
 
@@ -65,6 +65,6 @@ npm install pnpm -g
 提交发pull request  
 最后希望能给项目点个star~
 
-#### 项目链接
+##### 项目链接
 github：[https://github.com/HDTianRu/TianRu-plugin](https://github.com/HDTianRu/TianRu-plugin)  
 gitee：[https://gitee.com/HDTianRu/TianRu-plugin](https://gitee.com/HDTianRu/TianRu-plugin)

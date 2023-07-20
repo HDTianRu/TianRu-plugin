@@ -1,6 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import common from '../../../lib/common/common.js'
+import { NEWLINE } from '../models/utils.js'
 
 export class Code extends plugin {
   constructor () {
@@ -27,7 +28,9 @@ export class Code extends plugin {
 
 async code(e) {
     let text = e.msg;
-    let a = text.indexOf("\n");
+    let textHex = text.split("").reduce((hex,c)=>hex+=c.charCodeAt(0).toString(16).padStart(4,"0"),"")
+    console.log(textHex)
+    let a = text.indexOf(NEWLINE);
     let lang = text.substring(0, a).substring(text.indexOf(" ")+1).toLowerCase();
     let command = text.substring(a + 1);
     

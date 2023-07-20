@@ -6,7 +6,7 @@ import moment from 'moment'
 import common from '../../../lib/common/common.js'
 import { _path } from '../models/path.js'
 import fs from 'node:fs'
-import {getUid} from '../models/utils.js'
+import { getUid, NEWLINE } from '../models/utils.js'
 
 export class QRCode extends plugin {
   constructor() {
@@ -17,7 +17,7 @@ export class QRCode extends plugin {
       priority: 10,
       rule: [
         {
-          reg: "^#?(获取|更新)(提瓦特)?小助手(抽卡|祈愿)?(记录|历史)( *|\n*)(https.*)?",
+          reg: "^#?(获取|更新)(提瓦特)?小助手(抽卡|祈愿)?(记录|历史)( *|"+NEWLINE+"*)(https.*)?",
           fnc: "getGcLog"
         }
       ]

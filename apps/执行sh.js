@@ -1,6 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import { exec } from 'child_process'
+import { NEWLINE } from '../models/utils.js'
 
 export class example extends plugin {
   constructor () {
@@ -16,7 +17,7 @@ export class example extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: '^#执行sh(.|\n)*',
+          reg: '^#执行sh(.|'+NEWLINE+')*',
           /** 执行方法 */
           fnc: 'eval'
         }
@@ -34,7 +35,7 @@ export class example extends plugin {
     return true
     }
     this.reply("正在执行....",true)
-  exec(e.msg.substring(e.msg.indexOf("\n")), (e, so, se) => {
+  exec(e.msg.substring(e.msg.indexOf(NEWLINE)), (e, so, se) => {
   this.reply("err："+e+"\nstdout："+so+"\nstderr："+se,true)
   logger.mark("err："+e+"\nstdout："+so+"\nstderr："+se)
 });

@@ -1,4 +1,5 @@
 import NoteUser from '../../genshin/model/mys/NoteUser.js'
+import Os from 'os'
 
 const _getUid = async function (qq) {
   let user = await NoteUser.create(qq)
@@ -17,4 +18,10 @@ export async function getUid (e, set = false) {
     e.uid = uid
   }
   return uid
+}
+
+const NEWLINE = (Os.platform() === 'win32') ? '\r' : '\n'
+
+export {
+  NEWLINE
 }

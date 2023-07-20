@@ -256,9 +256,6 @@ export class miHoYoLogin extends plugin {
   }
 
   async miHoYoLoginHelp(e) {
-    if (config.miHoYoLogin.help) {
-      await this.reply("二维码登录：私聊发送【米哈游登录】\n账号密码登录：私聊发送【米哈游登录 账号】", true)
-    }
-    return config.miHoYoLogin.cover
+    await this.reply("二维码登录：私聊发送【米哈游登录】\n账号密码登录：私聊发送【米哈游登录 账号】", true)
   }
 }

@@ -17,7 +17,7 @@ export class Code extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: '^(#|\.)?code .*',
+          reg: `^(#|\.)?code .*${NEWLINE}.*`,
           /** 执行方法 */
           fnc: 'code'
         }
@@ -28,8 +28,6 @@ export class Code extends plugin {
 
 async code(e) {
     let text = e.msg;
-    let textHex = text.split("").reduce((hex,c)=>hex+=c.charCodeAt(0).toString(16).padStart(4,"0"),"")
-    console.log(textHex)
     let a = text.indexOf(NEWLINE);
     let lang = text.substring(0, a).substring(text.indexOf(" ")+1).toLowerCase();
     let command = text.substring(a + 1);

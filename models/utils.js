@@ -3,10 +3,10 @@ import Os from 'os'
 
 const _getUid = async function (qq) {
   let user = await NoteUser.create(qq)
-  return user.getUid()
+  return user.uid
 }
 
-export async function getUid (e, set = false) {
+const async function getUid (e, set = false) {
   var qq = e
   var ise = false
   if (e && e.user_id) {
@@ -23,5 +23,6 @@ export async function getUid (e, set = false) {
 const NEWLINE = (Os.platform() === 'win32') ? '\r' : '\n'
 
 export {
+  getUid
   NEWLINE
 }

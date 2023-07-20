@@ -17,7 +17,7 @@ export class example extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: '^#执行sh(.|'+NEWLINE+')*',
+          reg: `^#执行sh(.|${NEWLINE})*`,
           /** 执行方法 */
           fnc: 'eval'
         }

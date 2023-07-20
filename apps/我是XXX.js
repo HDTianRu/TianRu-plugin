@@ -16,7 +16,7 @@ export class example extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: '^#我是.*'+NEWLINE+'.*',
+          reg: `^#我是.*${NEWLINE}.*`,
           /** 执行方法 */
           fnc: 'whoami'
         }

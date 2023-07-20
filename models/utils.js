@@ -23,6 +23,6 @@ const async function getUid (e, set = false) {
 const NEWLINE = (Os.platform() === 'win32') ? '\r' : '\n'
 
 export {
-  getUid
+  getUid,
   NEWLINE
 }

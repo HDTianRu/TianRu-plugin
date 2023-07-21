@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import { exec } from 'child_process'
 import { NEWLINE } from '../models/utils.js'
 
-export class example extends plugin {
+export class eval extends plugin {
   constructor () {
     super({
       /** 功能名称 */

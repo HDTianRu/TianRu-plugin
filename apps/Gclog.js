@@ -8,7 +8,7 @@ import { _path } from '../models/path.js'
 import fs from 'node:fs'
 import { getUid, NEWLINE } from '../models/utils.js'
 
-export class QRCode extends plugin {
+export class Gclog extends plugin {
   constructor() {
     super({
       name: "提瓦特小助手抽卡记录",

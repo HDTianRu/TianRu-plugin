@@ -2,7 +2,7 @@ import plugin from '../../../lib/plugins/plugin.js'
 import { getUid, NEWLINE } from '../models/utils.js'
 import Runtime from '../../../lib/plugins/runtime.js'
 
-export class example extends plugin {
+export class whoami extends plugin {
   constructor () {
     super({
       /** 功能名称 */

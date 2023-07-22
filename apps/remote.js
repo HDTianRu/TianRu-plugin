@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import { exec } from 'child_process'
 import { NEWLINE } from '../models/utils.js'
 
-export class eval extends plugin {
+export class remote extends plugin {
   constructor () {
     super({
       /** 功能名称 */
@@ -19,7 +19,7 @@ export class eval extends plugin {
           /** 命令正则匹配 */
           reg: `^#执行sh(.|${NEWLINE})*`,
           /** 执行方法 */
-          fnc: 'eval'
+          fnc: 'remote'
         }
       ]
     })
@@ -29,7 +29,7 @@ export class eval extends plugin {
    * #一言
    * @param e oicq传递的事件参数e
    */
-  async eval (e) {
+  async remote (e) {
     if (!this.e.isMaster){
     await this.reply("还想执行shell？想得美哦～",true)
     return true

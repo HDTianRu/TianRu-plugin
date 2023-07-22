@@ -23,23 +23,7 @@ export class whoami extends plugin {
       ]
     })
   }
-/*
-logObj(obj) {
-  logger.mark(Object.prototype.toString.call(obj));
-  logger.mark(typeof(obj));
-  for (let key in obj) {
-    if (typeof obj[key] === 'function') {
-      logger.mark("function:"+key);
-      continue;
-    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-      //this.logObj(obj[key]);
-      logger.mark("object:"+key);
-      continue;
-    } else {
-      logger.mark(key+":"+obj[key]);
-    }
-  }
-}*/
+
 
   async whoami (e) {
     if (!this.e.isMaster) return false

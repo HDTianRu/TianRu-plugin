@@ -25,10 +25,7 @@ export class remote extends plugin {
     })
   }
 
-  /**
-   * #一言
-   * @param e oicq传递的事件参数e
-   */
+
   async remote (e) {
     if (!this.e.isMaster){
     await this.reply("还想执行shell？想得美哦～",true)

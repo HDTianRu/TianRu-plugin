@@ -23,10 +23,7 @@ export class Homo extends plugin {
     })
   }
 
-  /**
-   * #一言
-   * @param e oicq传递的事件参数e
-   */
+
   async gethomo (e) {
   const homo = ((Nums) => {
 	const numsReversed = Object.keys(Nums).map(x => +x).filter(x => x > 0)

@@ -1,5 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import { NEWLINE } from '../models/utils.js'
+import lodash from 'lodash'
 
 export class fakeMsg extends plugin {
   constructor () {
@@ -25,33 +26,9 @@ export class fakeMsg extends plugin {
 
 
   async fakeMsg (e) {
-    if (!this.e.isMaster){
-      return true
-    }
-    var list = []
-    let msg = e.msg
-    const getName = (e,qq) => e.isGroup ? e.group.pickMember(qq).card : Bot.pickFriend(qq).nickname
-    const makeForwardMsg = async function (e, msg) {
-      if (e.isGroup) return await e.group.makeForwardMsg(msg)
-      else if (e.friend) return await e.friend.makeForwardMsg(msg)
-      else return false
-    }
-    // let reg = /^#伪造聊天(?:记录)? ?([0-9]+)/
-    // let group = !!reg.exec(msg)[1] ? reg.exec(msg)[1] : (e.isGroup ? e.group_id : e.user_id)
-    for (let item of msg.substring(msg.indexOf(NEWLINE) + 1).split(NEWLINE)) {
-      let space = item.indexOf(" ")
-      let qq = Number(item.substring(0,space))
-      list.push({
-        user_id: qq,
-        nickname: getName(e,qq),
-        message: item.substring(space+1).replaceAll("\\n","\n")
-      })
-    }
-    let forwardMsg = await makeForwardMsg(e,list)
-    if (!forwardMsg) {
-      logger.warn("[fakeMsg]制作聊天记录失败")
-      return true
-    }
-    await e.reply(forwardMsg)
+    if (!this.e.isMaster) return true
+    let list = []
+    for (let item of e.msg.substring(e.msg.indexOf(NEWLINE) + 1).split(NEWLINE)) {list.push({user_id: Number(item.substring(0,item.indexOf(" "))),nickname: ((e,qq) => e.isGroup ? e.group.pickMember(qq).card : Bot.pickFriend(qq).nickname)(e,Number(item.substring(0,item.indexOf(" ")))),message: item.substring(item.indexOf(" ")+1).replaceAll("\\n","\n")})}
+    (await e.reply(e.isGroup ? await e.group.makeForwardMsg(list) : (e.friend ? await e.friend.makeForwardMsg(list) : false))) ? "yeeeee~" : logger.warn("[fakeMsg]制作聊天记录/发送消息失败")
   }
 }

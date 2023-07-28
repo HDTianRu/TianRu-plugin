@@ -58,8 +58,8 @@ export const helpList = [{
   auth: 'master',
   list: [{
     icon: 145,
-    title: '#让我看看[抽卡|常驻|武器][QQ号]',
-    desc: '偷看群u抽卡记录'
+    title: '#伪造聊天[[回车][QQ 消息]]...',
+    desc: '伪造一份合并聊天记录'
   }, {
     icon: 135,
     title: '#我是[QQ号][回车][指令]',

@@ -124,6 +124,7 @@ async code(e) {
             break;
         default:
             this.reply("未知语言" + lang,true);
+            return;
             break;
     }
 

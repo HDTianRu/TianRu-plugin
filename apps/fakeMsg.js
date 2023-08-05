@@ -31,21 +31,13 @@ export class fakeMsg extends plugin {
     var list = []
     let msg = e.msg
     const getName = (e,qq) => e.isGroup ? e.group.pickMember(qq).card : Bot.pickFriend(qq).nickname
-    const makeForwardMsg = async function (e, msg, dec) {
-      var forward = false
-      if (e.isGroup) forward = await e.group.makeForwardMsg(msg)
-      else if (e.friend) forward = await e.friend.makeForwardMsg(msg)
+    const makeForwardMsg = async function (e, msg) {
+      if (e.isGroup) return await e.group.makeForwardMsg(msg)
+      else if (e.friend) return await e.friend.makeForwardMsg(msg)
       else return false
-      if (!forward) return false
-      if (dec && forward.data) {
-        e.reply(forward.data.toString())
-        forward.data = forward.data
-          .replace(/\n/g, '')
-          .replace(/<title color="#777777" size="26">(.+?)<\/title>/g, '___')
-          .replace(/___+/, `<title color="#777777" size="26">${dec}</title>`)
-      }
-      return forward
     }
+    // let reg = /^#伪造聊天(?:记录)? ?([0-9]+)/
+    // let group = !!reg.exec(msg)[1] ? reg.exec(msg)[1] : (e.isGroup ? e.group_id : e.user_id)
     for (let item of msg.substring(msg.indexOf(NEWLINE) + 1).split(NEWLINE)) {
       let space = item.indexOf(" ")
       let qq = Number(item.substring(0,space))
@@ -55,8 +47,7 @@ export class fakeMsg extends plugin {
         message: item.substring(space+1).replaceAll("\\n","\n")
       })
     }
-    let dec = msg.substring(0,msg.indexOf("\n")).replace(/#?伪造聊天(记录)?/,"").trim().replaceAll("\\n","\n")
-    let forwardMsg = await makeForwardMsg(e,list,dec)
+    let forwardMsg = await makeForwardMsg(e,list)
     if (!forwardMsg) {
       logger.warn("[fakeMsg]制作聊天记录失败")
       return true

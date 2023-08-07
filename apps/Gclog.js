@@ -169,7 +169,7 @@ async function getAuthKey(e, user) {
   e.region = getServer(e.uid)
   let authkeyrow = await user.getData("authKey", {});
   if (!authkeyrow?.data) {
-    e.reply(`uid:${e.uid},authkey获取失败：` + (authkeyrow.message.includes("登录失效") ? "请重新绑定stoken" : authkeyrow.message))
+    e.reply(`uid:${e.uid},authkey获取失败：` + (authkeyrow.message.includes("登录失效") ? "请在指令后跟上抽卡链接或重新绑定stoken" : authkeyrow.message))
     return false;
   }
   return authkeyrow.data["authkey"];

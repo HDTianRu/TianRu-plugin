@@ -9,7 +9,7 @@
 ### 介绍
 
 一个自用的yunzai的插件  
-有获取"提瓦特小助手"抽卡记录，执行各种语言代码，模拟指定QQ执行指令，伪造聊天记录，执行sh与js代码，生成二维码，将数字变成114514组合的恶臭数字....等各种小功能
+有获取"提瓦特小助手"抽卡记录，模拟执行各种语言代码，模拟指定QQ执行指令，伪造聊天记录，执行sh与js代码，生成二维码，将数字变成114514组合的恶臭数字....等各种小功能
 
 ### 安装教程
 
@@ -62,17 +62,17 @@ pnpm install --filter=TianRu-plugin
 
 ##### 目录
 
-[更新小助手抽卡记录](# 更新小助手抽卡记录)  
-[伪造聊天](# 伪造聊天)  
+[更新小助手抽卡记录](#更新小助手抽卡记录)  
+[伪造聊天](#伪造聊天)  
 
-##### 更新小助手抽卡记录
+##### 更新小助手抽卡记录 {#更新小助手抽卡记录}
 
-(非必须)"更新提瓦特小助手抽卡记录" 功能推荐同时安装"xiaoyao-cvs-plugin"：https://gitee.com/Ctrlcvs/xiaoyao-cvs-plugin.git  
+(非必须)"更新提瓦特小助手抽卡记录" 功能推荐同时安装[xiaoyao-cvs-plugin](https://gitee.com/Ctrlcvs/xiaoyao-cvs-plugin.git)  
 使用说明:  
 若安装xiaoyao-cvs-plugin且绑定stoken，可直接发送"#更新小助手抽卡记录"  
 或者可以在指令后跟上抽卡链接或发送指令后再发抽卡链接
 
-##### 伪造聊天
+##### 伪造聊天 {#伪造聊天}
 
 使用说明:  
 基本用法(多行文字中间加上"\n")
@@ -97,9 +97,9 @@ pnpm install --filter=TianRu-plugin
 
 #### 其中
 
-"米哈游登录" 功能搬运自"TRSS-plugin"：https://Yunzai.TRSS.me  
+"米哈游登录" 功能搬运自[TRSS-plugin](https://Yunzai.TRSS.me)  
 
-"homo" 功能部分代码来自：https://github.com/itorr/homo  
+"homo" 功能部分代码来自[homo](https://github.com/itorr/homo)  
 
 ### 使用说明
 配合云崽使用, https://gitee.com/Le-niao/Yunzai-Bot

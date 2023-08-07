@@ -65,14 +65,14 @@ pnpm install --filter=TianRu-plugin
 [更新小助手抽卡记录](#更新小助手抽卡记录)  
 [伪造聊天](#伪造聊天)  
 
-##### 更新小助手抽卡记录 {#更新小助手抽卡记录}
+##### 更新小助手抽卡记录
 
 (非必须)"更新提瓦特小助手抽卡记录" 功能推荐同时安装[xiaoyao-cvs-plugin](https://gitee.com/Ctrlcvs/xiaoyao-cvs-plugin.git)  
 使用说明:  
 若安装xiaoyao-cvs-plugin且绑定stoken，可直接发送"#更新小助手抽卡记录"  
 或者可以在指令后跟上抽卡链接或发送指令后再发抽卡链接
 
-##### 伪造聊天 {#伪造聊天}
+##### 伪造聊天
 
 使用说明:  
 基本用法(多行文字中间加上"\n")

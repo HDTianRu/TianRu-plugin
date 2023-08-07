@@ -7,7 +7,8 @@ const require = createRequire(import.meta.url);
 const { exec, execSync } = require("child_process");
 
 // 是否在更新中
-let uping = false;
+var uping = false;
+var isUp = false;
 
 /**
  * 处理插件更新
@@ -51,7 +52,7 @@ export class update extends plugin {
     /** 是否需要重启 */
     if (this.isUp) {
       // await this.reply("更新完毕，请重启云崽后生效")
-      setTimeout(() => this.restart(), 2000)
+      setTimeout(() => this.restart(), 1000)
     }
   }
 
@@ -91,7 +92,7 @@ export class update extends plugin {
       await this.reply(`天如插件已经是最新版本\n最后更新时间：${time}`);
     } else {
       await this.reply(`天如插件\n最后更新时间：${time}`);
-      this.isUp = true;
+      isUp = true;
       /** 获取天如组件的更新日志 */
       let log = await this.getLog("TianRu-plugin");
       await this.reply(log);
@@ -220,10 +221,18 @@ export class update extends plugin {
     }
 
     /** 处理描述 */
-    forwardMsg.data = forwardMsg.data
-      .replace(/\n/g, "")
-      .replace(/<title color="#777777" size="26">(.+?)<\/title>/g, "___")
-      .replace(/___+/, `<title color="#777777" size="26">${title}</title>`);
+    /** 处理描述 */
+    if (typeof (forwardMsg.data) === 'object') {
+      let detail = forwardMsg.data?.meta?.detail
+      if (detail) {
+        detail.news = [{ text: title }]
+      }
+    } else {
+      forwardMsg.data = forwardMsg.data
+        .replace(/\n/g, '')
+        .replace(/<title color="#777777" size="26">(.+?)<\/title>/g, '___')
+        .replace(/___+/, `<title color="#777777" size="26">${title}</title>`)
+    }
 
     return forwardMsg;
   }

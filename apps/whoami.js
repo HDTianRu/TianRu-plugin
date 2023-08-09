@@ -38,6 +38,8 @@ export class whoami extends plugin {
     e.at = 0
     if (e.user_id && cfg.masterQQ.includes(Number(e.user_id))) {
       e.isMaster = true
+    } else {
+      e.isMaster = false
     }
     await Runtime.init(e)
     e.sender = e.isGroup ? e.group.pickMember(e.user_id) : Bot.pickUser(e.user_id)

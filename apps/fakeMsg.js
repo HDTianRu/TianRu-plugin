@@ -1,47 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import { NEWLINE } from '../models/utils.js'
+import { NEWLINE, makeForwardMsg } from '../models/utils.js'
 
 const getName = (e,qq) => e.isGroup ? e.group.pickMember(qq).card : Bot.pickFriend(qq).nickname
-
-const makeForwardMsg = async function (e, msg, dec) {
-  var forward
-  if (e.isGroup) forward = await e.group.makeForwardMsg(msg)
-  else if (e.friend) forward = await e.friend.makeForwardMsg(msg)
-  else return false
-  if (!forward) return false
-  if (dec) {
-    /** 处理描述 */
-    if (typeof (forward.data) === 'object') {
-      let detail = forward.data?.meta?.detail
-      if (detail) {
-        let news = []
-        if (dec.includes("\n")) {
-          for (let i of dec.split("\n")) {
-            news.push({ text: i })
-          }
-        }
-        else {
-          news.push({ text: dec })
-        }
-        detail.news = news
-      }
-    } else {
-      var xml = ""
-      if (dec.includes("\n")) {
-        for (let i of dec.split("\n")) {
-          xml += `<title color="#777777" size="26">${i}</title>`
-        }
-      } else {
-        xml = `<title color="#777777" size="26">${dec}</title>`
-      }
-      forward.data = forward.data
-        .replace(/\n/g, '')
-        .replace(/<title color="#777777" size="26">(.+?)<\/title>/g, '___')
-        .replace(/___+/, xml)
-    }
-  }
-  return forward
-}
 
 export class fakeMsg extends plugin {
   constructor () {

@@ -36,7 +36,7 @@ export class whoami extends plugin {
     e.user_id = QQret[0].toString() * 1
     e.at = 0
     await Runtime.init(e)
-    e.sender = e.group.pickMember(e.user_id)
+    e.sender = e.isGroup ? e.group.pickMember(e.user_id) : Bot.pickUser(e.user_id)
     e.uid = await getUid(e)
     return false
   }

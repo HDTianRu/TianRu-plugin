@@ -8,7 +8,6 @@ const { exec, execSync } = require("child_process");
 
 // 是否在更新中
 var uping = false;
-var isUp = false;
 
 /**
  * 处理插件更新
@@ -47,6 +46,7 @@ export class update extends plugin {
     const isForce = this.e.msg.includes("强制");
 
     /** 执行更新 */
+    this.isUp = false
     await this.runUpdate(isForce);
 
     /** 是否需要重启 */
@@ -77,7 +77,7 @@ export class update extends plugin {
     this.oldCommitId = await this.getcommitId("TianRu-plugin");
     uping = true;
     let ret = await this.execSync(command);
-    uping = false;
+    this.uping = false;
 
     if (ret.error) {
       logger.mark(`${this.e.logFnc} 更新失败：天如插件`);

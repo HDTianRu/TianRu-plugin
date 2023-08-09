@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import plugin from '../../../lib/plugins/plugin.js';
 import YAML from 'yaml'
 import fs from 'fs'
+import { makeForwardMsg } from '../models/utils.js'
 
 export class setu extends plugin {
     constructor() {

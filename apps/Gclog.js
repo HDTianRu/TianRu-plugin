@@ -3,10 +3,9 @@ import fetch from 'node-fetch'
 import lodash from 'lodash'
 import GachaLog from '../../genshin/model/gachaLog.js'
 import moment from 'moment'
-import common from '../../../lib/common/common.js'
 import { _path } from '../models/path.js'
 import fs from 'node:fs'
-import { getUid, NEWLINE } from '../models/utils.js'
+import { getUid, NEWLINE, makeForwardMsg } from '../models/utils.js'
 
 export class Gclog extends plugin {
   constructor() {
@@ -158,7 +157,7 @@ export class Gclog extends plugin {
     }
 
     msg.push("导入成功")
-    await this.e.reply(common.makeForwardMsg(e,msg))
+    await this.e.reply(makeForwardMsg(e,msg))
   }
 }
 

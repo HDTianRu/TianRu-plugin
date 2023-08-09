@@ -1,5 +1,10 @@
 import fs from 'node:fs'
 
+if (!global.segment) {
+  logger.warn(logger.red("! 未找到 segment，建议更新 Yunzai"))
+  global.segment = (await import("oicq")).segment
+}
+
 const files = fs.readdirSync('./plugins/TianRu-plugin/apps').filter(file => file.endsWith('.js'))
 
 let ret = []

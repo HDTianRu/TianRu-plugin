@@ -1,7 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
-import common from '../../../lib/common/common.js'
-import { NEWLINE } from '../models/utils.js'
+import { NEWLINE, makeForwardMsg } from '../models/utils.js'
 
 export class Code extends plugin {
   constructor () {
@@ -149,7 +148,7 @@ async code(e) {
             let out = data.stdout + data.stderr + data.error;
             out = out || "执行成功，但是没有输出";
             //this.reply(out.replace(/\\n/g, "\n"),true);
-            let msg = common.makeForwardMsg(e,[out],"执行结果")
+            let msg = makeForwardMsg(e,out,"执行结果")
             this.reply(msg)
         })
         .catch(error => console.error(error));

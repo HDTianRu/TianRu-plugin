@@ -1,6 +1,7 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import { getUid, NEWLINE } from '../models/utils.js'
 import Runtime from '../../../lib/plugins/runtime.js'
+import cfg from '../../../lib/config/config.js'
 
 export class whoami extends plugin {
   constructor () {
@@ -35,6 +36,9 @@ export class whoami extends plugin {
     e.original_msg = e.msg
     e.user_id = QQret[0].toString() * 1
     e.at = 0
+    if (e.user_id && cfg.masterQQ.includes(Number(e.user_id))) {
+      e.isMaster = true
+    }
     await Runtime.init(e)
     e.sender = e.isGroup ? e.group.pickMember(e.user_id) : Bot.pickUser(e.user_id)
     e.uid = await getUid(e)

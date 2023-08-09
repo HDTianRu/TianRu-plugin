@@ -1,4 +1,3 @@
-import { segment } from "oicq"
 import QR from "qrcode"
 
 export class QRCode extends plugin {

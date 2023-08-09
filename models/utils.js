@@ -1,4 +1,5 @@
 import NoteUser from '../../genshin/model/mys/NoteUser.js'
+import common from '../../../lib/common/common.js'
 import os from 'os'
 
 const _getUid = async function (qq) {
@@ -20,7 +21,14 @@ const getUid = async function (e, set = false) {
   return uid
 }
 
-const makeForwardMsg = async function (e, msg, dec) {
+const makeForwardMsg = async function (e, msg = [], dec = '', onlyMsg = false, msgsscr = false) {
+  if (typeof(msg) === "string") {
+    if (msg == "") return false
+    return await common.makeForwardMsg(e, [msg], dec, msgsscr)
+  }
+  if (msg.length == 0) return false
+  if (onlyMsg || typeof(msg[0]) === "string") return await common.makeForwardMsg(e, msg, dec, msgsscr)
+  
   var forward
   if (e.isGroup) forward = await e.group.makeForwardMsg(msg)
   else if (e.friend) forward = await e.friend.makeForwardMsg(msg)

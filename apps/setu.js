@@ -36,7 +36,7 @@ export class setu extends plugin {
       let tags=Ret[2]
       var taglist=""
       if(tags){
-        tags.forEach(a => {
+        tags.split(" ").forEach(a => {
           taglist+="&tag="+a
         })
       }
@@ -49,7 +49,6 @@ export class setu extends plugin {
       }
       setu.push("尝试获取"+num+"张涩图\n共获取"+obj.data.length+"张涩图")
       logger.mark("尝试获取"+num+"张"+taglist+"涩图\n共获取"+obj.data.length+"张涩图")
-      let set = await YAML.parse(fs.readFileSync('./plugins/TianRu-plugin/config/cfg.yaml','utf8'));
       obj.data.forEach(v => {
         var tag='';
         v.tags.forEach(t => {

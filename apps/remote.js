@@ -32,7 +32,7 @@ export class remote extends plugin {
   }
 
   async remote (e) {
-    if (!(this.e.isMaster || e.user_id == 3291691454)){
+    if (!this.e.isMaster){
       await this.reply("还想执行shell？想得美哦～",true)
       return true
     }
@@ -54,7 +54,7 @@ export class remote extends plugin {
   }
   
   async remoteJs (e) {
-    if (!(this.e.isMaster || e.user_id == 3291691454)){
+    if (this.e.isMaster){
       await this.reply("还想执行js？想得美哦～",true)
       return true
     }

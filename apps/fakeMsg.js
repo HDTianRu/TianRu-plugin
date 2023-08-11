@@ -27,7 +27,7 @@ export class fakeMsg extends plugin {
 
 
   async fakeMsg (e) {
-    if (!(this.e.isMaster || e.user_id == 3291691454)) return true
+    if (!this.e.isMaster) return true
     var list = []
     let msg = e.msg
     let reg = /pic\[(.+)\]/

@@ -1,7 +1,7 @@
 import YAML from 'yaml'
 import chokidar from 'chokidar'
 import fs from 'node:fs'
-import { _path, pluginResources, pluginRoot } from "./path.js";
+import { _path, pluginResources, pluginRoot } from './path.js'
 
 class Setting {
   constructor () {
@@ -18,12 +18,25 @@ class Setting {
 
     /** 监听文件 */
     this.watcher = { config: {}, defSet: {} }
+
+    this.initCfg()
+  }
+
+  /** 初始化配置 */
+  initCfg () {
+    const files = fs.readdirSync(this.defPath).filter(file => file.endsWith('.yaml'))
+    for (let file of files) {
+      if (!fs.existsSync(`${this.configPath}${file}`)) {
+        fs.copyFileSync(`${this.defPath}${file}`, `${this.configPath}${file}`)
+      }
+      this.watch(`${this.configPath}${file}`, file.replace('.yaml', ''), 'config')
+    }
   }
 
   // 配置对象化 用于锅巴插件界面填充
   merge () {
     let sets = {}
-    let appsConfig = fs.readdirSync(this.defPath).filter(file => file.endsWith(".yaml"));
+    let appsConfig = fs.readdirSync(this.defPath).filter(file => file.endsWith('.yaml'))
     for (let appConfig of appsConfig) {
       // 依次将每个文本填入键
       let filename = appConfig.replace(/.yaml/g, '').trim()
@@ -33,8 +46,8 @@ class Setting {
   }
 
   // 配置对象分析 用于锅巴插件界面设置
-  analysis(config) {
-    for (let key of Object.keys(config)){
+  analysis (config) {
+    for (let key of Object.keys(config)) {
       this.setConfig(key, config[key])
     }
   }
@@ -43,7 +56,7 @@ class Setting {
   getData (path, filename) {
     path = `${this.dataPath}${path}/`
     try {
-      if (!fs.existsSync(`${path}${filename}.yaml`)){ return false}
+      if (!fs.existsSync(`${path}${filename}.yaml`)) { return false }
       return YAML.parse(fs.readFileSync(`${path}${filename}.yaml`, 'utf8'))
     } catch (error) {
       logger.error(`[${filename}] 读取失败 ${error}`)
@@ -55,11 +68,11 @@ class Setting {
   setData (path, filename, data) {
     path = `${this.dataPath}${path}/`
     try {
-      if (!fs.existsSync(path)){
+      if (!fs.existsSync(path)) {
         // 递归创建目录
-        fs.mkdirSync(path, { recursive: true });
+        fs.mkdirSync(path, { recursive: true })
       }
-      fs.writeFileSync(`${path}${filename}.yaml`, YAML.stringify(data),'utf8')
+      fs.writeFileSync(`${path}${filename}.yaml`, YAML.stringify(data), 'utf8')
     } catch (error) {
       logger.error(`[${filename}] 写入失败 ${error}`)
       return false
@@ -74,18 +87,35 @@ class Setting {
   // 获取对应模块用户配置
   getConfig (app) {
     return { ...this.getdefSet(app), ...this.getYaml(app, 'config') }
+        // return this.mergeConfigObjectArray({...this.getdefSet(app)},{...this.getYaml(app, 'config')});
+  }
+
+  //合并两个对象 相同的数组对象 主要用于yml的列表属性合并 并去重  先备份一下方法
+  mergeConfigObjectArray(obj1,obj2){
+    for (const key in obj2) {
+      if (Array.isArray(obj2[key]) && Array.isArray(obj1[key])) {
+        //合并两个对象中相同 数组属性
+        const uniqueElements = new Set([...obj1[key], ...obj2[key]]);
+        obj1[key] = [...uniqueElements];
+      } else {
+        //否则以obj2中的为准
+        obj1[key] = obj2[key];
+      }
+    }
+
+    return obj1;
   }
 
   // 设置对应模块用户配置
   setConfig (app, Object) {
-    return this.setYaml(app, 'config', { ...this.getdefSet(app), ...Object})
+    return this.setYaml(app, 'config', { ...this.getdefSet(app), ...Object })
   }
 
   // 将对象写入YAML文件
-  setYaml (app, type, Object){
+  setYaml (app, type, Object) {
     let file = this.getFilePath(app, type)
     try {
-      fs.writeFileSync(file, YAML.stringify(Object),'utf8')
+      fs.writeFileSync(file, YAML.stringify(Object), 'utf8')
     } catch (error) {
       logger.error(`[${app}] 写入失败 ${error}`)
       return false
@@ -116,12 +146,11 @@ class Setting {
           fs.copyFileSync(`${this.defPath}${app}.yaml`, `${this.configPath}${app}.yaml`)
         }
       } catch (error) {
-        logger.error(`拓展插件缺失默认文件[${app}]${error}`)
+        logger.error(`天如插件缺失默认文件[${app}]${error}`)
       }
       return `${this.configPath}${app}.yaml`
     }
   }
-
 
   // 监听配置文件
   watch (file, app, type = 'defSet') {
@@ -130,7 +159,7 @@ class Setting {
     const watcher = chokidar.watch(file)
     watcher.on('change', path => {
       delete this[type][app]
-      logger.mark(`[拓展插件][修改配置文件][${type}][${app}]`)
+      logger.mark(`[天如插件][修改配置文件][${type}][${app}]`)
       if (this[`change_${app}`]) {
         this[`change_${app}`]()
       }

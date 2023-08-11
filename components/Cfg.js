@@ -2,24 +2,25 @@ import fs from 'fs'
 import lodash from 'lodash'
 import YAML from 'yaml'
 
+let app = "TianRu-plugin"
 const _path = process.cwd()
-const _cfgPath = `${_path}/plugins/TianRu-plugin/components/`
+const _cfgPath = `${_path}/plugins/${app}/components/`
 let cfg = {}
 
-let configPath = `${_path}/plugins/TianRu-plugin/config/`
-let defSetPath = './plugins/TianRu-plugin/defSet/'
+let configPath = `${_path}/plugins/${app}/config/`
+let defSetPath = `./plugins/${app}/defSet/`
 
-const getConfig = function (app, name) {
-  let defp = `${defSetPath}${app}/${name}.yaml`
-  if (!fs.existsSync(`${configPath}${app}.${name}.yaml`)) {
-    fs.copyFileSync(defp, `${configPath}${app}.${name}.yaml`)
+const getConfig = function (name) {
+  let defp = `${defSetPath}${name}.yaml`
+  if (!fs.existsSync(`${configPath}${name}.yaml`)) {
+    fs.copyFileSync(defp, `${configPath}${name}.yaml`)
   }
-  let conf = `${configPath}${app}.${name}.yaml`
+  let conf = `${configPath}${name}.yaml`
 
   try {
     return YAML.parse(fs.readFileSync(conf, 'utf8'))
   } catch (error) {
-    logger.error(`[${app}][${name}] 格式错误 ${error}`)
+    logger.error(`[${name}] 格式错误 ${error}`)
     return false
   }
 }
@@ -27,7 +28,7 @@ const getConfig = function (app, name) {
 try {
   if (fs.existsSync(_cfgPath + 'cfg.json')) {
     cfg = JSON.parse(fs.readFileSync(_cfgPath + 'cfg.json', 'utf8')) || {}
-    cfg.expands = getConfig('expand', 'expand')
+    cfg.expands = getConfig('TianRu', 'expand')
   }
 } catch (e) {
   // do nth

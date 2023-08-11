@@ -1,7 +1,6 @@
 import fetch from "node-fetch";
 import plugin from '../../../lib/plugins/plugin.js';
-import YAML from 'yaml'
-import fs from 'fs'
+import setting from '../models/setting.js'
 import { makeForwardMsg } from '../models/utils.js'
 
 export class setu extends plugin {
@@ -26,20 +25,15 @@ export class setu extends plugin {
         this.reply("请用阿拉伯数字表达数量",true)
         return true;
       }
+      let cfg = setting.getConfig("setu")
       await e.reply('正在给你找图片啦～',true,{recallMsg:7});
       var setu=[]
       setu.push("请复制链接去浏览器打开\n浏览器打不开就换个别的浏览器，比如via，Google")
-      let index=e.msg.indexOf("张")
-      var num=Number(e.msg.substring(2,index))
-      if(!num) num=1
-      if(num > 20) num=20
-      var isR18=0
-      var tags=e.msg.substring(index+1,e.msg.length - 2).split(" ")
-      let Ret = /^#来[1-9][0-9]*张.*(r|R)18(涩|色)图/.exec(e.msg)
-      if (Ret) {
-        tags=e.msg.substring(index+1,e.msg.length - 5).split(" ")
-        isR18=1
-      }
+      let Ret = /^#来([1-9][0-9]*)张(.*)?(?:涩|色|瑟)图/.exec(e.msg)
+      if(!Ret) return false
+      let num=(Number(Ret[1]) > 20) ? 20 : Number(Ret[1])
+      let isR18=cfg.r18Type
+      let tags=Ret[2]
       var taglist=""
       if(tags){
         tags.forEach(a => {
@@ -68,7 +62,7 @@ export class setu extends plugin {
         "\n作者uid："+v.uid+
         "\n涩图标签："+tag+
         "\n涩图格式："+v.ext+
-        ((isR18 || set.picType == "url") ? "\n涩图链接："+v.urls.regular : '' + setu.push(segment.image(v.urls.regular)))
+        ((isR18 != 0 || cfg.picType == "url") ? "\n涩图链接："+v.urls.regular : '' + setu.push(segment.image(v.urls.regular)))
         )
       })
       let abc=await this.reply(await makeForwardMsg(this.e,setu,"啊哈哈哈哈哈，涩图来咯～"),false,{recallMsg:60});

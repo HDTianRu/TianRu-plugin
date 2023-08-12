@@ -33,7 +33,7 @@ export class setu extends plugin {
       if(!Ret) return false
       let num=(Number(Ret[1]) > 20) ? 20 : Number(Ret[1])
       let isR18=cfg.r18Type
-      let tags=Ret[2]
+      let tags=Ret[2].trim()
       var taglist=""
       if(tags){
         tags.split(" ").forEach(a => {

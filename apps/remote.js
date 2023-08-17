@@ -54,7 +54,7 @@ export class remote extends plugin {
   }
   
   async remoteJs (e) {
-    if (this.e.isMaster){
+    if (!this.e.isMaster){
       await this.reply("还想执行js？想得美哦～",true)
       return true
     }

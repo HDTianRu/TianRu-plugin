@@ -106,7 +106,7 @@ pnpm install --filter=TianRu-plugin
 
 ### 其他
 有问题提issue或联系我QQ：3291691454  
-交流群：(893157055)[http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=BWtOJkAHVX20OlQqgAIPn7UID9LtigSg&group_code=893157055]  
+交流群：[893157055](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=BWtOJkAHVX20OlQqgAIPn7UID9LtigSg&group_code=893157055)  
 提交发pull request  
 最后希望能给项目点个star~
 

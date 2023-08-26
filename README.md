@@ -1,5 +1,7 @@
 # 天如插件
 
+开学了，暂时跑路XD
+
 ### 访问量
 
 [![访问量](https://profile-counter.glitch.me/TianRu-plugin/count.svg)](https://github.com/HDTianRu/TianRu-plugin)

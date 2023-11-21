@@ -66,7 +66,11 @@ export class Choose extends plugin {
     }
 
     // Apply the algorithm to choices
-    let item = weightedRandom(choices, normalizedValues);
+    // let item = weightedRandom(choices, normalizedValues);
+    
+    // Take the maximum value
+    let maxIndex = normalizedValues.indexOf(Math.max(...normalizedValues));
+    let item = choices[maxIndex];
 
     // Construct results
     let response = `我的选择是：${item}`

@@ -51,6 +51,10 @@ export const helpList = [{
     icon: 36,
     title: '#米哈游登录',
     desc: '私聊使用，获取stoken与cookie'
+  }, {
+    icon: 74,
+    title: '#帮我选 [选项1] [选项2] [...]',
+    desc: '让bot替你做出选择'
   }]
 }, {
   group: '管理命令，仅主人可用',

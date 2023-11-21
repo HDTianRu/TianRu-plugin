@@ -57,6 +57,7 @@ pnpm install --filter=TianRu-plugin
 |#执行sh[指令]|远程对服务器执行指令|
 |#执行js[指令]|执行js指令|
 |#米哈游登录|获取stoken和cookie，搬运自TRSS-plugin|
+|#帮我选 [选项1] [选项2] [...]|让bot从若干选项中选择一个|
 
 #### 部分指令说明
 

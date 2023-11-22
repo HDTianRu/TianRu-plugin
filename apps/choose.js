@@ -31,18 +31,21 @@ export class Choose extends plugin {
     
     // Trivial case
     if (choices.length == 0) {
-      this.reply('请输入选项！')
+      await this.reply('请输入选项！')
       return;
     }
     var hashValues = choices.map(word => {
       var hash = crypto.createHash('sha256');
       hash.update(word);
       var hashValue = hash.digest('hex'); // (0, 2^256)
-      // Take the first 16 bits (4 bytes) of the hash value
-      hashValue = hashValue.substring(0, 8);
+      // Take the first 24 bits (3 bytes) of the hash value
+      hashValue = hashValue.substring(0, 6);
       var intValue = parseInt(hashValue, 16);
-      // Add a 30-bit number as a disturbance value
-      intValue += crypto.randomInt(Math.pow(2, 30))
+      // Add a 22-bit number as a disturbance value
+      // Note that a single hash value could be 0.
+      // In order to avoid divide-by-zero errors in normalization process,
+      // we set the minimal random value to 1
+      intValue += crypto.randomInt(1, Math.pow(2, 22))
       return intValue;
     });
     

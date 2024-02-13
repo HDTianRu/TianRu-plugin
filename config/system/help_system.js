@@ -36,10 +36,6 @@ export const helpList = [{
     title: '#来[数量]张{标签 {R18}}涩图',
     desc: '获取涩图'
   }, {
-    icon: 163,
-    title: '#二维码 [文字|链接]',
-    desc: '生成二维码'
-  }, {
     icon: 132,
     title: '#code [语言][回车][语句]',
     desc: '模拟各种语言运行，不会影响本地'
@@ -47,10 +43,6 @@ export const helpList = [{
     icon: 72,
     title: '#更新小助手抽卡记录',
     desc: '更新并获取微信小程序"提瓦特小助手"中历史抽卡记录'
-  }, {
-    icon: 36,
-    title: '#米哈游登录',
-    desc: '私聊使用，获取stoken与cookie'
   }, {
     icon: 74,
     title: '#帮我选 [选项1] [选项2] [...]',

@@ -5,6 +5,5 @@
   "description": "A plugin for Yunzai",
   "type": "module",
   "dependencies": {
-    "qrcode": "^1.5.3"
   }
 }

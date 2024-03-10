@@ -157,7 +157,8 @@ export class Gclog extends plugin {
     }
 
     msg.push("导入成功")
-    await this.e.reply(makeForwardMsg(e,msg))
+    //await this.e.reply(makeForwardMsg(e,msg))
+    await this.e.reply(msg.join("\n"))
   }
 }
 

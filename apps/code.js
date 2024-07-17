@@ -136,15 +136,6 @@ export class Code extends plugin {
       command: ""
     });
 
-    let postData = JSON.stringify({
-      files: [{
-        name: "main." + FileName,
-        content: command
-      }],
-      stdin: "",
-      command: ""
-    });
-
     try {
       const response = await fetch("https://glot.io/run/" + lang + "?version=latest", {
         method: "POST",

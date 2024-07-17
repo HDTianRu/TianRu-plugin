@@ -146,8 +146,13 @@ export class Code extends plugin {
       });
 
       const data = await response.json();
-      let out = data.stdout + data.stderr + data.error;
-      out = out || "执行成功，但是没有输出";
+      // let out = data.stdout + data.stderr + data.error;
+      // out = out || "执行成功，但是没有输出";
+      let out = [
+        `stdout:\n${data.stdout}`,
+        `stderr:\n${data.stderr}`,
+        `error:\n${data.error}`
+      ]
 
       let msg = await makeForwardMsg(e, out);
       this.reply(msg);

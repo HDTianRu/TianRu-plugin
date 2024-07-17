@@ -68,10 +68,7 @@ const makeForwardMsg = async function (e, msg = [], dec = '', onlyMsg = false, m
   return forward
 }
 
-const NEWLINE = (os.platform() === 'win32') ? '\r' : '\n'
-
 export {
   getUid,
   makeForwardMsg,
-  NEWLINE
 }

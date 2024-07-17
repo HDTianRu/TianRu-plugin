@@ -1,6 +1,6 @@
 import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
-import { NEWLINE, makeForwardMsg } from '../models/utils.js'
+import { makeForwardMsg } from '../models/utils.js'
 
 export class Code extends plugin {
   constructor () {
@@ -16,7 +16,7 @@ export class Code extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: `^(#|\.)?code .*${NEWLINE}.*`,
+          reg: `^(#|\.)?code .*(\r|\n)*`,
           /** 执行方法 */
           fnc: 'code'
         }
@@ -27,7 +27,7 @@ export class Code extends plugin {
 
 async code(e) {
     let text = e.msg;
-    let a = text.indexOf(NEWLINE);
+    let a = /\r|\n/.exec(text).index;
     let lang = text.substring(0, a).substring(text.indexOf(" ")+1).toLowerCase();
     let command = text.substring(a + 1);
     

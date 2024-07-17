@@ -1,5 +1,5 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import { getUid, NEWLINE } from '../models/utils.js'
+import { getUid } from '../models/utils.js'
 import Runtime from '../../../lib/plugins/runtime.js'
 
 export class whoami extends plugin {
@@ -16,7 +16,7 @@ export class whoami extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: `^#我是.*${NEWLINE}.*`,
+          reg: `^#我是.*(\r|\n).*`,
           /** 执行方法 */
           fnc: 'whoami'
         }
@@ -31,7 +31,7 @@ export class whoami extends plugin {
     let QQret = QQreg.exec(e.msg)
     if (!QQret) return true
     let msg = e.msg
-    e.msg = msg.substring(msg.indexOf(NEWLINE) + 1)
+    e.msg = msg.substring(/\r|\n/.exec(msg).index + 1)
     e.original_msg = e.msg
     e.user_id = QQret[0].toString() * 1
     e.at = 0

@@ -28,9 +28,9 @@ export class whoami extends plugin {
   async whoami (e) {
     if (!this.e.isMaster) return false
     let QQreg = /[1-9][0-9]{4,12}/
-    let QQret = QQreg.exec(e.toString())
+    let QQret = QQreg.exec(e.msg)
     if (!QQret) return true
-    let msg = e.toString()
+    let msg = e.msg
     e.msg = msg.substring(msg.indexOf(NEWLINE) + 1)
     e.original_msg = e.msg
     e.user_id = QQret[0].toString() * 1

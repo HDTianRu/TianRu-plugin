@@ -38,7 +38,7 @@ export class remote extends plugin {
     }
     this.reply("正在执行....",true)
     let cmd = e.msg.replace("#执行sh","").trim()
-    exec(cmd, (e, so, se) => {
+    exec(cmd, async (e, so, se) => {
       let msg = []
       if (so) {
         msg.push(so)
@@ -49,7 +49,7 @@ export class remote extends plugin {
       if (e) {
         msg.push(`执行错误:\n${e}`)
       }
-      this.e.reply(makeForwardMsg(this.e,msg))
+      this.e.reply(await makeForwardMsg(this.e,msg))
     });
   }
   
@@ -66,6 +66,8 @@ export class remote extends plugin {
     } catch (e) {
       msg.push(`执行错误:\n${e.toString()}`)
     }
-    if (msg.filter(item => item !== undefined && item !== '').length != 0) this.e.reply(makeForwardMsg(this.e,msg))
+    if (msg.filter(item => item !== undefined && item !== '').length != 0) {
+      this.e.reply(await makeForwardMsg(this.e,msg))
+    }
   }
 }

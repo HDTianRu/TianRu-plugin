@@ -1,5 +1,5 @@
 import plugin from '../../../lib/plugins/plugin.js'
-import { NEWLINE, makeForwardMsg } from '../models/utils.js'
+import { makeForwardMsg } from '../models/utils.js'
 
 const getName = (e,qq) => e.isGroup ? e.group.pickMember(qq).card : Bot.pickFriend(qq).nickname
 
@@ -17,7 +17,7 @@ export class fakeMsg extends plugin {
       rule: [
         {
           /** 命令正则匹配 */
-          reg: `^#伪造聊天(记录)?(.|${NEWLINE})*`,
+          reg: `^#伪造聊天(记录)?(.|\r|\n)*`,
           /** 执行方法 */
           fnc: 'fakeMsg'
         }
@@ -31,7 +31,8 @@ export class fakeMsg extends plugin {
     var list = []
     let msg = e.msg
     let reg = /pic\[(.+)\]/
-    for (let item of msg.substring(msg.indexOf(NEWLINE) + 1).split(NEWLINE)) {
+    let reg_newline = /\r|\n/
+    for (let item of msg.substring(reg_newline.exec(msg).index + 1).split(reg_newline)) {
       let space = item.indexOf(" ")
       let qq = Number(item.substring(0,space))
       var message = item.substring(space+1)

@@ -65,8 +65,8 @@ export class whoami extends plugin {
       post_type: "message",
       message_type: 'group',
       sub_type: 'normal',
-      message: [{ type: "text", text: msg }],
-      raw_message: msg,
+      message: [{ type: "text", text: command }],
+      raw_message: command,
     })
   }
 }

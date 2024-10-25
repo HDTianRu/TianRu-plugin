@@ -1,6 +1,3 @@
-import plugin from '../../../lib/plugins/plugin.js'
-import { getUid } from '../models/utils.js'
-import Runtime from '../../../lib/plugins/runtime.js'
 
 export class whoami extends plugin {
   constructor () {

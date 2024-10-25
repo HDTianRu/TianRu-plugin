@@ -60,7 +60,7 @@ export class whoami extends plugin {
         role: '',
         title: '',
         level: ''
-      }
+      },
       reply: this.reply.bind(this),
       post_type: "message",
       message_type: 'group',

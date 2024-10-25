@@ -52,13 +52,24 @@ export class whoami extends plugin {
       }
     }    
     
-    e.msg = command
-    e.original_msg = e.msg
-    e.user_id = QQnumber * 1
-    e.at = 0
-    await Runtime.init(e)
-    e.sender = e.isGroup ? e.group.pickMember(e.user_id) : Bot.pickUser(e.user_id)
-    e.uid = await getUid(e)
-    return false
+    Bot.em("message", {
+      self_id: this.e.self_id,
+      message_id: this.e.message_id,
+      user_id: QQnumber,
+      sender: {
+        user_id: QQnumber,
+        nickname: '',
+        card: '',
+        role: '',
+        title: '',
+        level: ''
+      }
+      reply: this.reply.bind(this),
+      post_type: "message",
+      message_type: 'group',
+      sub_type: 'normal',
+      message: [{ type: "text", text: msg }],
+      raw_message: msg,
+    })
   }
 }

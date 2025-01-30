@@ -62,8 +62,8 @@ export class whoami extends plugin {
         level: ''
       },
       reply: this.reply.bind(this),
-      post_type: "private",
-      message_type: 'group',
+      post_type: "message",
+      message_type: 'private',
       sub_type: 'normal',
       message: [{ type: "text", text: command }],
       raw_message: command,

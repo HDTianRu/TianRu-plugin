@@ -1,4 +1,3 @@
-import { makeForwardMsg } from '../model/utils.js'
 
 const getName = (e,qq) => e.isGroup ? e.group.pickMember(qq).card : Bot.pickFriend(qq).nickname
 
@@ -48,7 +47,7 @@ export class fakeMsg extends plugin {
       })
     }
     let dec = msg.substring(0,msg.indexOf("\n")).replace(/#?伪造聊天(记录)?/,"").trim().replaceAll("\\n","\n")
-    let forwardMsg = await makeForwardMsg(e,list,dec)
+    let forwardMsg = await e.runtime.common.makeForwardMsg(e,list,dec)
     if (!forwardMsg) {
       logger.warn("[fakeMsg]制作聊天记录失败")
       return true

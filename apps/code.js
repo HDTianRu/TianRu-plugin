@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import {
   makeForwardMsg
-} from '../models/utils.js'
+} from '../model/utils.js'
 
 export class Code extends plugin {
   constructor () {

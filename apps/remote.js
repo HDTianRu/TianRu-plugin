@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import { exec } from 'child_process'
-import { makeForwardMsg } from '../models/utils.js'
+import { makeForwardMsg } from '../model/utils.js'
 
 export class remote extends plugin {
   constructor () {

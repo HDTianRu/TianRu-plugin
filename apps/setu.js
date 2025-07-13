@@ -1,7 +1,4 @@
 import fetch from "node-fetch"
-import {
-  makeForwardMsg
-} from '../model/utils.js'
 
 export class setu extends plugin {
   constructor() {
@@ -68,7 +65,7 @@ export class setu extends plugin {
         ((isR18 != 0 || cfg.picType == "url") ? "\n涩图链接：" + v.urls.regular : '' + setu.push(segment.image(v.urls.regular)))
       )
     })
-    let abc = await this.reply(await makeForwardMsg(this.e, setu, "啊哈哈哈哈哈，涩图来咯～"), false, {
+    let abc = await this.reply(await e.runtime.common.makeForwardMsg(this.e, setu, "啊哈哈哈哈哈，涩图来咯～"), false, {
       recallMsg: 60
     })
     if (!abc) {

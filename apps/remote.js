@@ -1,6 +1,5 @@
 import fetch from 'node-fetch'
 import { exec } from 'child_process'
-import { makeForwardMsg } from '../model/utils.js'
 
 export class remote extends plugin {
   constructor () {
@@ -48,7 +47,7 @@ export class remote extends plugin {
       if (e) {
         msg.push(`执行错误:\n${e}`)
       }
-      this.e.reply(await makeForwardMsg(this.e,msg))
+      this.e.reply(await e.runtime.common.makeForwardMsg(this.e,msg))
     });
   }
   
@@ -66,7 +65,7 @@ export class remote extends plugin {
       msg.push(`执行错误:\n${e.toString()}`)
     }
     if (msg.filter(item => item !== undefined && item !== '').length != 0) {
-      this.e.reply(await makeForwardMsg(this.e,msg))
+      this.e.reply(await e.runtime.common.makeForwardMsg(this.e,msg))
     }
   }
 }

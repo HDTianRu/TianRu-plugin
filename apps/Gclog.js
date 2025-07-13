@@ -4,7 +4,7 @@ import GachaLog from '../../genshin/model/gachaLog.js'
 import moment from 'moment'
 import { _path } from '../config/constant.js'
 import fs from 'node:fs'
-import { getUid, makeForwardMsg } from '../model/utils.js'
+import { getUid } from '../model/utils.js'
 
 export class Gclog extends plugin {
   constructor() {

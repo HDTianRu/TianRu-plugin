@@ -1,7 +1,5 @@
 import fetch from 'node-fetch'
-import {
-  makeForwardMsg
-} from '../model/utils.js'
+
 
 export class Code extends plugin {
   constructor () {
@@ -153,7 +151,7 @@ export class Code extends plugin {
         `error:\n${data.error}`
       ]
 
-      let msg = await makeForwardMsg(e, out);
+      let msg = await e.runtime.common.makeForwardMsg(e, out);
       this.reply(msg);
     } catch (error) {
       logger.error(error);

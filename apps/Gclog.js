@@ -1,4 +1,3 @@
-import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import lodash from 'lodash'
 import GachaLog from '../../genshin/model/gachaLog.js'

@@ -1,4 +1,3 @@
-import plugin from '../../../lib/plugins/plugin.js'
 import fetch from 'node-fetch'
 import { exec } from 'child_process'
 import { makeForwardMsg } from '../models/utils.js'

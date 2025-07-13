@@ -1,5 +1,3 @@
-import plugin from '../../../lib/plugins/plugin.js'
-//import './homo/homo.js'
 
 export class Homo extends plugin {
   constructor () {

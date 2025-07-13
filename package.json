@@ -5,5 +5,10 @@
   "description": "A plugin for Yunzai",
   "type": "module",
   "dependencies": {
+    "child_process": "*",
+    "crypto": "*",
+    "lodash": "*",
+    "moment": "*",
+    "path": "*"
   }
 }

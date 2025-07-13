@@ -1,11 +1,10 @@
 import fs from 'node:fs'
+import {
+  pluginName,
+  pluginApplications
+} from "./config/constant.js"
 
-if (!global.segment) {
-  logger.warn(logger.red("! 未找到 segment，建议更新 Yunzai"))
-  global.segment = (await import("oicq")).segment
-}
-
-const files = fs.readdirSync('./plugins/TianRu-plugin/apps').filter(file => file.endsWith('.js'))
+const files = fs.readdirSync(pluginApplications).filter(file => file.endsWith('.js'))
 
 let ret = []
 
@@ -26,7 +25,7 @@ for (let i in files) {
   }
   apps[name] = ret[i].value[Object.keys(ret[i].value)[0]]
 }
-logger.mark("天如插件载入完毕")
+logger.mark(`${pluginName}插件载入完毕`)
 logger.mark("交流群 893157055")
 logger.info(" ╱|、")
 logger.info("(˚ˎ 。7")

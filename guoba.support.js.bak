@@ -1,0 +1,37 @@
+import Cfg from './model/Cfg.js'
+import {
+  pluginName
+} from "./config/constant.js"
+
+export function supportGuoba() {
+  return {
+    pluginInfo: {
+      name: pluginName,
+      title: pluginName,
+      author: '@天如',
+      authorLink: 'https://gitee.com/HDTianRu',
+      link: `https://gitee.com/HDTianRu/${pluginName}`,
+      isV3: true,
+      isV2: false,
+      description: '天如插件',
+      icon: 'mdi:cat',
+      iconColor: '#6bb9dd',
+    },
+    configInfo: {
+      schemas: [
+      ],
+      getConfigData() {
+        return Cfg.getAll()
+      },
+      setConfigData(data, {
+        Result
+      }) {
+        for (let [keyPath, value] of Object.entries(data)) {
+          Cfg._set(keyPath, value)
+        }
+        Cfg.save()
+        return Result.ok({}, '保存成功喵~')
+      },
+    },
+  }
+}

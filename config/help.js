@@ -1,14 +1,10 @@
-/**
-* 请注意，系统不会读取help_default.js ！！！！
-* 【请勿直接修改此文件，且可能导致后续冲突】
-*
-* 如需自定义可将文件【复制】一份，并重命名为 help.js
-*
-* */
+import {
+  pluginName
+} from "./constant.js"
 
 export const helpCfg = {
-  title: '天如帮助',
-  subTitle: 'Yunzai-Bot & TianRu-Plugin',
+  title: `${pluginName}帮助`,
+  subTitle: `Yunzai-Bot & ${pluginName}`,
   columnCount: 3,
   colWidth: 265,
   theme: 'all',

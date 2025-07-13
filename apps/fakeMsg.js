@@ -1,4 +1,3 @@
-import plugin from '../../../lib/plugins/plugin.js'
 import { makeForwardMsg } from '../models/utils.js'
 
 const getName = (e,qq) => e.isGroup ? e.group.pickMember(qq).card : Bot.pickFriend(qq).nickname

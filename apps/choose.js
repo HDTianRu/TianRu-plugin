@@ -1,5 +1,4 @@
 import crypto from 'crypto';
-import plugin from '../../../lib/plugins/plugin.js'
 
 export class Choose extends plugin {
   constructor () {

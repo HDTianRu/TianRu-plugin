@@ -1,12 +1,16 @@
 import lodash from 'lodash'
 import fs from 'fs'
+import path from 'path'
+import {
+  _path,
+  pluginName
+} from "../config/constant.js"
 
-const _path = process.cwd()
 const getRoot = (root = '') => {
   if (root === 'root' || root === 'yunzai') {
-    root = `${_path}/`
+    root = _path
   } else if (!root) {
-    root = `${_path}/plugins/TianRu-plugin/`
+    root = path.join(_path, 'plugins', pluginName, 'data')
   }
   return root
 }
@@ -16,14 +20,14 @@ let Data = {
   /*
   * 根据指定的path依次检查与创建目录
   * */
-  createDir (path = '', root = '', includeFile = false) {
+  createDir (dir = '', root = '', includeFile = false) {
     root = getRoot(root)
-    let pathList = path.split('/')
+    let pathList = dir.split('/')
     let nowPath = root
     pathList.forEach((name, idx) => {
       name = name.trim()
-      if (!includeFile && idx <= pathList.length - 1) {
-        nowPath += name + '/'
+      if (idx < pathList.length - (includeFile ? 1: 0)) {
+        nowPath = path.join(nowPath, name)
         if (name) {
           if (!fs.existsSync(nowPath)) {
             fs.mkdirSync(nowPath)
@@ -33,17 +37,35 @@ let Data = {
     })
   },
 
+  read (file = '',
+    root = '') {
+    root = getRoot(root)
+    const filePath = path.join(root,
+      file)
+    if (!fs.existsSync(filePath)) return ''
+    try {
+      return fs.readFileSync(filePath, 'utf8')
+    } catch (e) {
+      logger.warn(e)
+    }
+  },
+
+  write (file, data, root = '') {
+    // 检查并创建目录
+    Data.createDir(file, root, true)
+    root = getRoot(root)
+    return fs.writeFileSync(path.join(root, file), data)
+  },
+
   /*
   * 读取json
   * */
   readJSON (file = '', root = '') {
-    root = getRoot(root)
-    if (fs.existsSync(`${root}/${file}`)) {
-      try {
-        return JSON.parse(fs.readFileSync(`${root}/${file}`, 'utf8'))
-      } catch (e) {
-        console.log(e)
-      }
+    try {
+      let fileContent = Data.read(`${file}.json`, root) || "{}"
+      return JSON.parse(fileContent)
+    } catch (e) {
+      logger.warn(e)
     }
     return {}
   },
@@ -52,11 +74,7 @@ let Data = {
   * 写JSON
   * */
   writeJSON (file, data, space = '\t', root = '') {
-    // 检查并创建目录
-    Data.createDir(file, root, true)
-    root = getRoot(root)
-    delete data._res
-    return fs.writeFileSync(`${root}/${file}`, JSON.stringify(data, null, space))
+    return Data.write(`${file}.json`, JSON.stringify(data || {}, null, space), root)
   },
 
   async getCacheJSON (key) {
@@ -66,13 +84,15 @@ let Data = {
         return JSON.parse(txt)
       }
     } catch (e) {
-      console.log(e)
+      logger.warn(e)
     }
     return {}
   },
 
   async setCacheJSON (key, data, EX = 3600 * 24 * 90) {
-    await redis.set(key, JSON.stringify(data), { EX })
+    await redis.set(key, JSON.stringify(data), {
+      EX
+    })
   },
 
   async importModule (file, root = '') {
@@ -80,12 +100,13 @@ let Data = {
     if (!/\.js$/.test(file)) {
       file = file + '.js'
     }
-    if (fs.existsSync(`${root}/${file}`)) {
+    const filePath = path.join(root, file)
+    if (fs.existsSync(filePath)) {
       try {
-        let data = await import(`file://${root}/${file}?t=${new Date() * 1}`)
+        let data = await import(`file://${filePath}?t=${new Date() * 1}`)
         return data || {}
       } catch (e) {
-        console.log(e)
+        logger.warn(e)
       }
     }
     return {}
@@ -97,14 +118,14 @@ let Data = {
   },
 
   async import (name) {
-    return await Data.importModule(`components/optional-lib/${name}.js`)
+    return await Data.importModule(path.join('components', 'optional-lib', `${name}.js`))
   },
 
   async importCfg (key) {
-    let sysCfg = await Data.importModule(`config/system/${key}_system.js`)
-    let diyCfg = await Data.importModule(`config/${key}.js`)
+    let sysCfg = await Data.importModule(path.join('config', 'system', `${key}_system.js`))
+    let diyCfg = await Data.importModule(path.join('config', `${key}.js`))
     if (diyCfg.isSys) {
-      console.error(`TianRu-plugin: config/${key}.js无效，已忽略`)
+      console.error(`${pluginName}: config/${key}.js无效，已忽略`)
       console.error(`如需配置请复制config/${key}_default.js为config/${key}.js，请勿复制config/system下的系统文件`)
       diyCfg = {}
     }
@@ -152,32 +173,12 @@ let Data = {
     return ret
   },
 
-  getVal (target, keyFrom, defaultValue) {
-    return lodash.get(target, keyFrom, defaultValue)
-  },
-
-  // 异步池，聚合请求
-  async asyncPool (poolLimit, array, iteratorFn) {
-    const ret = [] // 存储所有的异步任务
-    const executing = [] // 存储正在执行的异步任务
-    for (const item of array) {
-      // 调用iteratorFn函数创建异步任务
-      const p = Promise.resolve().then(() => iteratorFn(item, array))
-      // 保存新的异步任务
-      ret.push(p)
-
-      // 当poolLimit值小于或等于总任务个数时，进行并发控制
-      if (poolLimit <= array.length) {
-        // 当任务完成后，从正在执行的任务数组中移除已完成的任务
-        const e = p.then(() => executing.splice(executing.indexOf(e), 1))
-        executing.push(e) // 保存正在执行的异步任务
-        if (executing.length >= poolLimit) {
-          // 等待较快的任务执行完成
-          await Promise.race(executing)
-        }
-      }
-    }
-    return Promise.all(ret)
+  getVal (target,
+    keyFrom,
+    defaultValue) {
+    return lodash.get(target,
+      keyFrom,
+      defaultValue)
   },
 
   // sleep
@@ -204,12 +205,14 @@ let Data = {
     }
     lodash.forEach(arr, (str, idx) => {
       if (!lodash.isUndefined(str)) {
-        fn(str.trim ? str.trim() : str, idx)
+        fn(str.trim ? str.trim(): str, idx)
       }
     })
   },
 
-  regRet (reg, txt, idx) {
+  regRet (reg,
+    txt,
+    idx) {
     if (reg && txt) {
       let ret = reg.exec(txt)
       if (ret && ret[idx]) {

@@ -1,4 +1,0 @@
-#0为非 R18，1为 R18，2为混合
-r18Type: 1
-#pic或url，但无论填的什么，开R18自动url模式
-picType: "url"

@@ -1,10 +1,14 @@
 import lodash from 'lodash'
 import fs from 'fs'
-import { Data } from '../../components/index.js'
+import path from "path"
+import Data from '../../model/Data.js'
+import {
+  pluginResources
+} from "../../config/constant.js"
 
 let HelpTheme = {
   async getThemeCfg (theme, exclude) {
-    let dirPath = './plugins/TianRu-plugin/resources/help/theme/'
+    let dirPath = path.join(pluginResources, "help/theme/")
     let ret = []
     let names = []
     let dirs = fs.readdirSync(dirPath)
@@ -28,24 +32,24 @@ let HelpTheme = {
     let resPath = '{{_res_path}}/help/theme/'
     return {
       main: `${resPath}${name}/main.png`,
-      bg: fs.existsSync(`${dirPath}${name}/bg.jpg`) ? `${resPath}${name}/bg.jpg` : `${resPath}default/bg.jpg`,
+      bg: fs.existsSync(`${dirPath}${name}/bg.jpg`) ? `${resPath}${name}/bg.jpg`: `${resPath}default/bg.jpg`,
       style: (await Data.importModule(`resources/help/theme/${name}/config.js`)).style || {}
     }
   },
-  async getThemeData (diyStyle, sysStyle) {
-    let helpConfig = lodash.extend({}, sysStyle, diyStyle)
+  async getThemeData (style) {
+    let helpConfig = lodash.extend({}, style)
     let colCount = Math.min(5, Math.max(parseInt(helpConfig?.colCount) || 3, 2))
     let colWidth = Math.min(500, Math.max(100, parseInt(helpConfig?.colWidth) || 265))
     let width = Math.min(2500, Math.max(800, colCount * colWidth + 30))
-    let theme = await HelpTheme.getThemeCfg(diyStyle.theme || sysStyle.theme, diyStyle.themeExclude || sysStyle.themeExclude)
+    let theme = await HelpTheme.getThemeCfg(style.theme, style.themeExclude)
     let themeStyle = theme.style || {}
     let ret = [`
-    body{background-image:url(${theme.bg});width:${width}px;}
-    .container{background-image:url(${theme.main});width:${width}px;}
-    .help-table .td,.help-table .th{width:${100 / colCount}%}
+      body{background-image:url(${theme.bg});width:${width}px;}
+      .container{background-image:url(${theme.main});width:${width}px;}
+      .help-table .td,.help-table .th{width:${100 / colCount}%}
     `]
     let css = function (sel, css, key, def, fn) {
-      let val = Data.def(themeStyle[key], diyStyle[key], sysStyle[key], def)
+      let val = Data.def(themeStyle[key], style[key], def)
       if (fn) {
         val = fn(val)
       }
@@ -55,7 +59,7 @@ let HelpTheme = {
     css('.help-title,.help-group', 'text-shadow', 'fontShadow', 'none')
     css('.help-desc', 'color', 'descColor', '#eee')
     css('.cont-box', 'background', 'contBgColor', 'rgba(43, 52, 61, 0.8)')
-    css('.cont-box', 'backdrop-filter', 'contBgBlur', 3, (n) => diyStyle.bgBlur === false ? 'none' : `blur(${n}px)`)
+    css('.cont-box', 'backdrop-filter', 'contBgBlur', 3, (n) => style.bgBlur === false ? 'none': `blur(${n}px)`)
     css('.help-group', 'background', 'headerBgColor', 'rgba(34, 41, 51, .4)')
     css('.help-table .tr:nth-child(odd)', 'background', 'rowBgColor1', 'rgba(34, 41, 51, .2)')
     css('.help-table .tr:nth-child(even)', 'background', 'rowBgColor2', 'rgba(34, 41, 51, .4)')

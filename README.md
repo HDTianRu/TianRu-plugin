@@ -1,13 +1,5 @@
 # 天如插件
 
-开学了，暂时跑路XD
-
-### 访问量
-
-[![访问量](https://profile-counter.glitch.me/TianRu-plugin/count.svg)](https://github.com/HDTianRu/TianRu-plugin)
-
-动动手指给项目点个免费的star吧～
-
 ### 介绍
 
 一个自用的yunzai的插件  

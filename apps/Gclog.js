@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import lodash from 'lodash'
 import GachaLog from '../../genshin/model/gachaLog.js'
 import moment from 'moment'
-import { _path } from '../models/path.js'
+import { _path } from '../config/constant.js'
 import fs from 'node:fs'
 import { getUid, makeForwardMsg } from '../model/utils.js'
 

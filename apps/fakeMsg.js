@@ -25,19 +25,17 @@ export class fakeMsg extends plugin {
     if (!this.e.isMaster) return true
     const list = []
     const msg = e.msg
-    const reg = /pic\[(.+)\]/
     const reg_newline = /\r|\n/
     for (const item of msg.substring(reg_newline.exec(msg).index + 1).split(reg_newline)) {
       const space = item.indexOf(" ")
       let qq = item.substring(0, space)
       let nickname
       if (qq.indexOf("|")) {
-        nickname = qq.substring(qq.indexOf("|") + 1)
-        qq = qq.substring(0, qq.indexOf("|"))
+        [qq, nickname] = qq.split("|")
       }
       qq = Number(qq)
       let message = item.substring(space + 1)
-      const ret = reg.exec(message)
+      const ret = (/pic\[(.+)\]/).exec(message)
       if (ret) {
         message = segment.image(ret[1])
       } else {

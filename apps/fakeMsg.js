@@ -23,15 +23,21 @@ export class fakeMsg extends plugin {
 
   async fakeMsg(e) {
     if (!this.e.isMaster) return true
-    var list = []
-    let msg = e.msg
-    let reg = /pic\[(.+)\]/
-    let reg_newline = /\r|\n/
-    for (let item of msg.substring(reg_newline.exec(msg).index + 1).split(reg_newline)) {
-      let space = item.indexOf(" ")
-      let qq = Number(item.substring(0, space))
-      var message = item.substring(space + 1)
-      let ret = reg.exec(message)
+    const list = []
+    const msg = e.msg
+    const reg = /pic\[(.+)\]/
+    const reg_newline = /\r|\n/
+    for (const item of msg.substring(reg_newline.exec(msg).index + 1).split(reg_newline)) {
+      const space = item.indexOf(" ")
+      let qq = item.substring(0, space)
+      let nickname
+      if (qq.indexOf("|")) {
+        nickname = qq.substring(qq.indexOf("|") + 1)
+        qq = qq.substring(0, qq.indexOf("|"))
+      }
+      qq = Number(qq)
+      let message = item.substring(space + 1)
+      const ret = reg.exec(message)
       if (ret) {
         message = segment.image(ret[1])
       } else {
@@ -39,13 +45,13 @@ export class fakeMsg extends plugin {
       }
       list.push({
         user_id: qq,
-        nickname: getName(e, qq),
+        nickname: nickname || getName(e, qq),
         message: message
       })
     }
-    let dec = msg.substring(0, msg.indexOf("\n")).replace(/#?伪造聊天(记录)?/, "").trim().replaceAll("\\n", "\n")
+    //const dec = msg.substring(0, msg.indexOf("\n")).replace(/#?伪造聊天(记录)?/, "").trim().replaceAll("\\n", "\n")
     if (e?.isGroup) return e.bot.adapter.sendGroupForwardMsg(e, list)
     else if (e?.friend) return e.bot.adapter.sendFriendForwardMsg(e, list)
-    else return logger.warn("伪造失败")
+    else return logger.warn("伪造失败") || true
   }
 }

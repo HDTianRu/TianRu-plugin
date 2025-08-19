@@ -9,6 +9,7 @@
     "crypto": "*",
     "lodash": "*",
     "moment": "*",
-    "path": "*"
+    "path": "*",
+    "qrcode": "*"
   }
 }

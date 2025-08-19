@@ -50,7 +50,7 @@ export const helpList = [{
   auth: 'master',
   list: [{
     icon: 145,
-    title: '#伪造聊天[[回车][QQ 消息]]...',
+    title: '#伪造聊天[[回车][QQ(|名字) 消息]]...',
     desc: '伪造一份合并聊天记录'
   }, {
     icon: 135,

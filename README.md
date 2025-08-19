@@ -20,7 +20,7 @@ git clone --depth=1 https://github.com/HDTianRu/TianRu-plugin.git ./plugins/Tian
 ```
 
 #### 安装依赖
-如果遇到缺少qrcode依赖无法加载的  
+如果遇到缺少依赖无法加载的  
 进入yunzai目录执行  
 ```bash
 pnpm install -P
@@ -28,10 +28,6 @@ pnpm install -P
 如果没有pnpm可以先通过以下指令安装pnpm
 ```bash
 npm install pnpm -g
-```
-若还不行就
-```bash
-pnpm install --filter=TianRu-plugin
 ```
 
 ### 命令说明
@@ -43,7 +39,7 @@ pnpm install --filter=TianRu-plugin
 |#code|执行各种语言，不影响本地|
 |#来[数量]张[标签]涩图|多个标签空格隔开|
 |#我是[QQ][回车][指令]|模拟指定QQ执行指令|
-|#伪造聊天[外显][[回车][QQ 消息]]...|伪造一份合并聊天记录|
+|#伪造聊天[[回车][QQ(|名字) 消息]]...|伪造一份合并聊天记录|
 |#二维码|生成二维码|
 |#homo|可以将数字变得恶臭|
 |#执行sh[指令]|远程对服务器执行指令|
@@ -82,17 +78,15 @@ pnpm install --filter=TianRu-plugin
 3291691454 无内鬼，来点魅魔渔网涩图
 3291691454 pic[https://gchat.qpic.cn/gchatpic_new/0/0-0-147B03680B44751CB1FE3C66B930A054/0]
 ```
-若需更改聊天记录卡片外显文字，只需在"#伪造聊天"后面加上即可(多行文字中间加上"\n")，示例如下(Tips:转发该聊天记录会导致外显失效)
+若需更改名片名称，在QQ号后以"|"符号分割名称
 ```
-#伪造聊天 老司机: 无内鬼，来点魅魔渔网涩图\n老司机: [图片]\n云: 好看，🐍了🥵🥵🥵
-3291691454 你被骗了
+#伪造聊天
+3291691454|柚子社糕手 你被骗了
 ```
 
 </details>
 
-#### 其中
-
-"米哈游登录" 功能搬运自[TRSS-plugin](https://Yunzai.TRSS.me)  
+#### 致谢
 
 "homo" 功能部分代码来自[homo](https://github.com/itorr/homo)  
 

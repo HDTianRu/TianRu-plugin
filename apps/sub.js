@@ -40,7 +40,7 @@ function urls(text) {
 }
 
 function formatStorage(bytes) {
-    if (bytes === 0) return '0 B';
+    if (bytes <= 0) return '0 B';
     const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
     let i = 0;
     let value = bytes;

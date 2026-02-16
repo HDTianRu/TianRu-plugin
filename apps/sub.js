@@ -34,8 +34,8 @@ export class sub extends plugin {
 
 function urls(text) {
   const ret = linkify.match(text)
-    .filter(m => m.schema === 'http:' || m.schema === 'https:')
-    .map(m => m.url)
+    ?.filter(m => m.schema === 'http:' || m.schema === 'https:')
+    ?.map(m => m.url)
   return ret
 }
 

@@ -1,4 +1,4 @@
-const regex = /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?/g
+import linkify from "linkify-it"
 
 export class sub extends plugin {
   constructor() {
@@ -14,8 +14,9 @@ export class sub extends plugin {
     })
   }
 
-  async accept() {
-    const url = e.raw_message.match(regex)
+  async accept(e) {
+    const url = urls(e.raw_message)
+    logger.mark(url)
     if (!url) return
     e.reply(
       (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")
@@ -23,7 +24,8 @@ export class sub extends plugin {
   }
 
   async sub(e) {
-    const url = this.e.msg.match(regex)
+    const url = urls(e.raw_message)
+    logger.mark(url)
     if (!url) return
     e.reply(
       (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")
@@ -31,6 +33,12 @@ export class sub extends plugin {
   }
 }
 
+function urls(text) {
+  const ret = linkify.match(text)
+    .filter(m => m.schema === 'http:' || m.schema === 'https:')
+    .map(m => m.url)
+  return ret
+}
 
 async function getSubscriptionInfo(sub) {
   try {

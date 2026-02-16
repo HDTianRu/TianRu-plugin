@@ -17,7 +17,7 @@ export class sub extends plugin {
 
   async accept(e) {
     const url = urls(e.raw_message)
-    if (!url) return
+    if (!url) return null
     e.reply(
       (await Promise.all(url?.map(getSubscriptionInfo)?.filter(Boolean)))?.join("\n")
     )
@@ -59,9 +59,9 @@ async function getSubscriptionInfo(sub) {
         'User-Agent': 'clash/clash.meta/Mihomo/1.18.3'
       }
     })
-    if (!response.ok) return
+    if (!response.ok) return null
     const info = response.headers.get('subscription-userinfo')
-    if (!info) return
+    if (!info) return null
     const data = Object.fromEntries(info.split(";").map(i => i.trim().split('=')))
     logger.mark(sub, data)
     const used = Number(data.upload) + Number(data.download)
@@ -80,6 +80,6 @@ async function getSubscriptionInfo(sub) {
 剩余流量: ${formatStorage(remaining)}
 过期时间: ${expire}`
   } catch (e) {
-    return
+    return null
   }
 }

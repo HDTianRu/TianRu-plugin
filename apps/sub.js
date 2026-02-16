@@ -15,7 +15,7 @@ export class sub extends plugin {
   }
 
   async accept() {
-    const url = this.e.msg.match(regex)
+    const url = e.raw_message.match(regex)
     if (!url) return
     e.reply(
       (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")
@@ -23,7 +23,11 @@ export class sub extends plugin {
   }
 
   async sub(e) {
-
+    const url = this.e.msg.match(regex)
+    if (!url) return
+    e.reply(
+      (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")
+    )
   }
 }
 

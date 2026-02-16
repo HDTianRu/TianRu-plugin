@@ -19,7 +19,7 @@ export class sub extends plugin {
     const url = urls(e.raw_message)
     if (!url) return null
     e.reply(
-      (await Promise.all(url?.map(getSubscriptionInfo)?.filter(Boolean)))?.join("\n").trim()
+      (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n").trim()
     )
   }
 
@@ -54,7 +54,7 @@ function formatStorage(bytes) {
 async function getSubscriptionInfo(sub) {
   try {
     const response = await fetch(sub, {
-      method: 'GET',
+      method: 'HEAD',
       headers: {
         'User-Agent': 'clash/clash.meta/Mihomo/1.18.3'
       }

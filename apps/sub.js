@@ -14,14 +14,14 @@ export class sub extends plugin {
     })
   }
 
-  async accept(e) {
+  /*async accept(e) {
     const url = urls(e.raw_message)
     logger.mark(url)
     if (!url) return
     e.reply(
       (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")
     )
-  }
+  }*/
 
   async sub(e) {
     const url = urls(e.raw_message)
@@ -52,7 +52,7 @@ async function getSubscriptionInfo(sub) {
     const infoHeader = response.headers.get('subscription-userinfo')
     if (!infoHeader) return
     const data = {}
-    info.split('').forEach(item => {
+    info.split(/; ?/).forEach(item => {
       const [key, value] = item.trim().split('=')
       if (key && value) data[key] = parseInt(value)
     })

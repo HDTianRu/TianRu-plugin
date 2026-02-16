@@ -15,23 +15,21 @@ export class sub extends plugin {
     })
   }
 
-  /*async accept(e) {
+  async accept(e) {
     const url = urls(e.raw_message)
-    logger.mark(url)
-    if (!url) return
-    e.reply(
-      (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")
-    )
-  }*/
-
-  async sub(e) {
-    const url = urls(e.raw_message)
-    logger.mark(url)
     if (!url) return
     e.reply(
       (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")
     )
   }
+
+  /*async sub(e) {
+    const url = urls(e.raw_message)
+    if (!url) return
+    e.reply(
+      (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")
+    )
+  }*/
 }
 
 function urls(text) {
@@ -39,6 +37,18 @@ function urls(text) {
     .filter(m => m.schema === 'http:' || m.schema === 'https:')
     .map(m => m.url)
   return ret
+}
+
+function formatStorage(bytes) {
+    if (bytes === 0) return '0 B';
+    const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+    let i = 0;
+    let value = bytes;
+    while (value >= 1024 && i < units.length - 1) {
+        value /= 1024;
+        i++;
+    }
+    return `${parseFloat(value.toFixed(1))}${units[i]}`;
 }
 
 async function getSubscriptionInfo(sub) {
@@ -50,17 +60,12 @@ async function getSubscriptionInfo(sub) {
       }
     })
     if (!response.ok) return
-    const infoHeader = response.headers.get('subscription-userinfo')
-    if (!infoHeader) return
-    const data = {}
-    info.split(/; ?/).forEach(item => {
-      const [key, value] = item.trim().split('=')
-      if (key && value) data[key] = parseInt(value)
-    })
-
-    const GB = 1024 * 1024 * 1024
-    const used = (data.upload + data.download) / GB
-    const total = data.total / GB
+    const info = response.headers.get('subscription-userinfo')
+    if (!info) return
+    const data = Object.fromEntries(info.split(";").map(i => i.trim().split('=')))
+    logger.mark(sub, data)
+    const used = Number(data.upload) + Number(data.download)
+    const total = data.total
     const remaining = total - used
     const expire = data.expire ? new Date(data.expire * 1000).toLocaleString() : "永不过期"
     /*return {
@@ -71,8 +76,8 @@ async function getSubscriptionInfo(sub) {
     }*/
     return `订阅信息:
 链接: ${sub}
-流量信息: ${used.toFixed(2)}/${total.toFixed(2)}
-剩余流量: ${remaining.toFixed(2)}
+已用流量: ${formatStorage(used)}/${formatStorage(total)}
+剩余流量: ${formatStorage(remaining)}
 过期时间: ${expire}`
   } catch (e) {
     return

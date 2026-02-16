@@ -76,8 +76,8 @@ async function getSubscriptionInfo(sub) {
     }*/
     return `订阅信息:
 链接: ${sub}
-已用流量: ${formatStorage(used)}/${formatStorage(total)}
-剩余流量: ${formatStorage(remaining)}
+已用流量: ${formatStorage(used)}/${formatStorage(total)}(${Number(used / total * 100).toFixed(1)}%)
+剩余流量: ${formatStorage(remaining)}(${Number(remaining / total * 100).toFixed(1)}%)
 过期时间: ${expire}`
   } catch (e) {
     return null

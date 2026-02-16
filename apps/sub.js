@@ -46,7 +46,7 @@ async function getSubscriptionInfo(sub) {
     const response = await fetch(sub, {
       method: 'GET',
       headers: {
-        'User-Agent': 'Mihomo/1.18.3'
+        'User-Agent': 'clash/clash.meta/Mihomo/1.18.3'
       }
     })
     if (!response.ok) return

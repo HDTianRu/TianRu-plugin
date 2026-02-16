@@ -1,4 +1,5 @@
-import linkify from "linkify-it"
+import linkify-it from "linkify-it"
+const linkify = linkify-it()
 
 export class sub extends plugin {
   constructor() {

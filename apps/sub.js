@@ -14,8 +14,8 @@ export class sub extends plugin {
     })
   }
 
-  async accept(e) {
-    const url = e.msg.match(regex)
+  async accept() {
+    const url = this.e.msg.match(regex)
     if (!url) return
     e.reply(
       (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")

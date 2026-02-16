@@ -19,7 +19,7 @@ export class sub extends plugin {
     const url = urls(e.raw_message)
     if (!url) return
     e.reply(
-      (await Promise.all(url.map(getSubscriptionInfo).filter(Boolean))).join("\n")
+      (await Promise.all(url?.map(getSubscriptionInfo)?.filter(Boolean)))?.join("\n")
     )
   }
 

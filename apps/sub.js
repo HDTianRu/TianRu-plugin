@@ -33,6 +33,7 @@ export class sub extends plugin {
         remainingPercent: Number(info.remaining / info.total * 100).toFixed(1),
         offset: (info.used / info.total) * 440
       }
+      logger.mark(data)
       render('sub/index', data, {
         e
       })
@@ -79,7 +80,6 @@ async function getSubscriptionInfo(url) {
     const info = response.headers.get('subscription-userinfo')
     if (!info) return null
     const data = Object.fromEntries(info.split(";").map(i => i.trim().split('=')))
-    logger.mark(url, data)
     const used = Number(data.upload) + Number(data.download)
     const total = data.total
     const remaining = total - used

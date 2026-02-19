@@ -43,7 +43,7 @@
             stroke: #38bdf8;
             stroke-dasharray: 440;
             /* 动态填充偏移量：440 * (1 - 剩余比例分数) */
-            stroke-dashoffset: {{data.offset}}; 
+            stroke-dashoffset: {{offset}}; 
             transition: stroke-dashoffset 1s ease-out;
             filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
         }
@@ -61,7 +61,7 @@
                 <circle class="progress-bar" cx="90" cy="90" r="70"></circle>
             </svg>
             <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                <span class="text-3xl font-bold text-white">{{data.remainingPercent}}%</span>
+                <span class="text-3xl font-bold text-white">{{remainingPercent}}%</span>
                 <span class="text-xs text-gray-400 mt-1">剩余可用</span>
             </div>
         </div>
@@ -70,21 +70,21 @@
     <div class="space-y-4">
         <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
             <span class="text-gray-400 text-sm">总流量</span>
-            <span class="text-white font-mono font-medium">{{data.total}}</span>
+            <span class="text-white font-mono font-medium">{{total}}</span>
         </div>
         <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
             <span class="text-gray-400 text-sm">已用流量</span>
-            <span class="text-white font-mono font-medium">{{data.used}}</span>
+            <span class="text-white font-mono font-medium">{{used}}</span>
         </div>
         <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
             <span class="text-gray-400 text-sm">过期时间</span>
-            <span class="text-emerald-400 font-medium">{{data.expire}}</span>
+            <span class="text-emerald-400 font-medium">{{expire}}</span>
         </div>
     </div>
 
     <div class="mt-8 pt-6 border-t border-white/10 overflow-hidden">
         <p class="text-[10px] text-gray-500 truncate mb-1">订阅链接</p>
-        <p class="text-[10px] text-blue-400/70 truncate font-mono">{{data.url}}</p>
+        <p class="text-[10px] text-blue-400/70 truncate font-mono">{{url}}</p>
     </div>
 </div>
 

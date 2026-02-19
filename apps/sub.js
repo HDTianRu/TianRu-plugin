@@ -27,9 +27,10 @@ export class sub extends plugin {
       const data = {
         url: info.url,
         used: formatStorage(info.used),
+        remaining: formatStorage(info.remaining),
         total: formatStorage(info.total),
         expire: info.expire,
-        remainingPercent: Number(info.remaining / info.total).toFixed(1),
+        remainingPercent: Number(info.remaining / info.total * 100).toFixed(1),
         offset: (info.used / info.total) * 440
       }
       render('sub/index', data, {

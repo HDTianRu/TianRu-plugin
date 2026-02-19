@@ -8,20 +8,15 @@
         body {
             background: #0f172a;
             font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 500px;
             margin: 0;
+            display: inline-block;
         }
         .card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #1e293b;
             border-radius: 24px;
             padding: 40px;
             width: 450px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
         }
         .progress-ring {
             position: relative;
@@ -42,7 +37,7 @@
         .progress-bar {
             stroke: #38bdf8;
             stroke-dasharray: 440;
-            /* 动态填充偏移量：440 * (1 - 剩余比例分数) */
+            /* 动态填充偏移量：stroke-dasharray * (1 - 剩余比例分数) */
             stroke-dashoffset: {{offset}}; 
             transition: stroke-dashoffset 1s ease-out;
             filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
@@ -75,6 +70,10 @@
         <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
             <span class="text-gray-400 text-sm">已用流量</span>
             <span class="text-white font-mono font-medium">{{used}}</span>
+        </div>
+        <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
+            <span class="text-gray-400 text-sm">剩余流量</span>
+            <span class="text-white font-mono font-medium">{{remaining}}</span>
         </div>
         <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
             <span class="text-gray-400 text-sm">过期时间</span>

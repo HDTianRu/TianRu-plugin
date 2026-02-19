@@ -1,4 +1,5 @@
 import linkify_lib from "linkify-it"
+import render from "../model/render.js"
 
 const linkify = linkify_lib()
 

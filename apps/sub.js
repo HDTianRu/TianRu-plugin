@@ -35,7 +35,8 @@ export class sub extends plugin {
       }
       logger.mark(data)
       render('sub/index', data, {
-        e
+        e,
+        scale: 1.2
       })
     }
   }

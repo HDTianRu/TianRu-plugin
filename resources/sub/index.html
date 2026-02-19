@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: #0f172a;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            margin: 0;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            width: 450px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .progress-ring {
+            position: relative;
+            width: 180px;
+            height: 180px;
+        }
+        .progress-ring svg {
+            transform: rotate(-90deg);
+        }
+        .progress-ring circle {
+            fill: transparent;
+            stroke-width: 12;
+            stroke-linecap: round;
+        }
+        .progress-bg {
+            stroke: rgba(255, 255, 255, 0.1);
+        }
+        .progress-bar {
+            stroke: #38bdf8;
+            stroke-dasharray: 440;
+            /* 动态填充偏移量：440 * (1 - 剩余比例分数) */
+            stroke-dashoffset: {{data.offset}}; 
+            transition: stroke-dashoffset 1s ease-out;
+            filter: drop-shadow(0 0 8px rgba(56, 189, 248, 0.6));
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2 class="text-gray-400 text-sm font-medium tracking-widest uppercase mb-6 text-center">订阅使用状况</h2>
+    
+    <div class="flex justify-center mb-8">
+        <div class="progress-ring">
+            <svg width="180" height="180">
+                <circle class="progress-bg" cx="90" cy="90" r="70"></circle>
+                <circle class="progress-bar" cx="90" cy="90" r="70"></circle>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                <span class="text-3xl font-bold text-white">{{data.remainingPercent}}%</span>
+                <span class="text-xs text-gray-400 mt-1">剩余可用</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="space-y-4">
+        <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
+            <span class="text-gray-400 text-sm">总流量</span>
+            <span class="text-white font-mono font-medium">{{data.total}}</span>
+        </div>
+        <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
+            <span class="text-gray-400 text-sm">已用流量</span>
+            <span class="text-white font-mono font-medium">{{data.used}}</span>
+        </div>
+        <div class="flex justify-between items-center bg-white/5 p-3 rounded-xl">
+            <span class="text-gray-400 text-sm">过期时间</span>
+            <span class="text-emerald-400 font-medium">{{data.expire}}</span>
+        </div>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-white/10 overflow-hidden">
+        <p class="text-[10px] text-gray-500 truncate mb-1">订阅链接</p>
+        <p class="text-[10px] text-blue-400/70 truncate font-mono">{{data.url}}</p>
+    </div>
+</div>
+
+</body>
+</html>

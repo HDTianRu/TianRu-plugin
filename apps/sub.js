@@ -31,7 +31,7 @@ export class sub extends plugin {
         remainingPercent: Number(info.remaining / info.total).toFixed(1),
         offset: (info.used / info.total) * 440
       }
-      render('sub/index.html', data, {
+      render('sub/index', data, {
         e
       })
     }

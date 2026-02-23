@@ -20,9 +20,9 @@ export class sub extends plugin {
   async accept(e) {
     const url = urls(e.raw_message)
     if (!url) return null
-    const infos = await Promise.all(
-      url.map(getSubscriptionInfo).filter(Boolean)
-    )
+    const infos = (await Promise.all(
+      url.map(getSubscriptionInfo)
+    )).filter(Boolean)
     for (const info of infos) {
       const data = {
         url: info.url,

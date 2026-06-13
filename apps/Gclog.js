@@ -22,14 +22,16 @@ export class Gclog extends plugin {
     })
 
     this.pool = [
-      { type: 301, typeName: '角色活动' },
-      { type: 302, typeName: '武器活动' },
-      { type: 200, typeName: '常驻' }
+      { type: 301, typeName: "角色" },
+      { type: 302, typeName: "武器" },
+      { type: 500, typeName: "集录" },
+      { type: 200, typeName: "常驻" },
     ]
 
     this.typeName = {
       301: '角色',
       302: '武器',
+      500: '集录',
       200: '常驻'
     }
   }

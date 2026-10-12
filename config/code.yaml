@@ -1,9 +1,10 @@
-# #code 命令的代码运行后端，可选：wandbox / piston / glot
-# wandbox：免费无需 key（默认；不支持 kotlin）
+# #code 命令的代码运行后端，可选：glot / wandbox / piston
+# glot：glot.io 官网现行接口（/api/mux，免费无需 key，默认；15 种语言全支持）
+#       注意：此接口无官方文档，是官网前端在用的内部 API，若日后再次失效可切 wandbox
+# wandbox：免费无需 key（备选；不支持 kotlin）
 # piston：公共实例 emkc.org 自 2026-02-15 起 execute 需白名单授权（401），需自建实例或填 token
-# glot：glot.io 免费运行 API 已下线（404），保留旧代码仅为兼容，选它大概率报错
 # 修改后无需重启，下一条 #code 即生效
-backend: wandbox
+backend: glot
 
 piston:
   # 自建 piston 实例或已获白名单的实例地址

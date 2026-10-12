@@ -55,6 +55,26 @@ const wandboxPrefer = {
 }
 let wandboxList = null
 
+// glot.io 2026 新接口：单端点 POST /api/mux，action=run
+// 语言 → 镜像/构建/运行命令 映射来自官方 glotcode/glot-languages 仓库
+const glotRunMap = {
+  bash:       { image: 'glot/bash:latest',       build: [],                                       run: 'bash main.sh' },
+  python:     { image: 'glot/python:latest',     build: [],                                       run: 'python main.py' },
+  c:          { image: 'glot/clang:latest',      build: ['clang -o a.out -lm main.c'],            run: './a.out' },
+  cpp:        { image: 'glot/clang:latest',      build: ['clang++ -std=c++11 -o a.out main.cpp'], run: './a.out' },
+  javascript: { image: 'glot/javascript:latest', build: [],                                       run: 'node main.js' },
+  kotlin:     { image: 'glot/kotlin:latest',     build: ['kotlinc main.kt'],                      run: 'kotlin MainKt' },
+  lua:        { image: 'glot/lua:latest',        build: [],                                       run: 'lua main.lua' },
+  go:         { image: 'glot/golang:latest',     build: ['go build -o a.out main.go'],            run: './a.out' },
+  csharp:     { image: 'glot/csharp:latest',     build: ['mcs -out:a.exe main.cs'],               run: 'mono a.exe' },
+  java:       { image: 'glot/java:latest',       build: ['javac main.java'],                      run: 'java Main' },
+  php:        { image: 'glot/php:latest',        build: [],                                       run: 'php main.php' },
+  groovy:     { image: 'glot/groovy:latest',     build: [],                                       run: 'groovy main.groovy' },
+  rust:       { image: 'glot/rust:latest',       build: ['rustc -o a.out main.rs'],               run: './a.out' },
+  typescript: { image: 'glot/typescript:latest', build: ['tsc main.ts'],                          run: 'node main.js' },
+  perl:       { image: 'glot/perl:latest',       build: [],                                       run: 'perl main.pl' }
+}
+
 
 export class Code extends plugin {
   constructor () {
@@ -203,30 +223,47 @@ export class Code extends plugin {
     }
   }
 
-  // glot.io 免费运行API已于2026年下线（返回404），保留旧代码以备日后兼容
+  // 旧接口 POST https://glot.io/run/{lang} 已于2026年下线（404）
+  // 现走官网新接口 /api/mux（与浏览器前端一致，响应字段 stdout/stderr/error 同构）
   async glotRun(lang, FileName, command) {
-    let postData = JSON.stringify({
-      files: [{
-        name: "main."+FileName,
-        content: command
-      }],
-      stdin: "",
-      command: ""
-    });
+    let g = glotRunMap[lang];
+    if (!g) {
+      throw new Error("glot 不支持语言：" + lang);
+    }
 
-    const response = await fetch("https://glot.io/run/" + lang + "?version=latest", {
+    const response = await fetch("https://glot.io/api/mux", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/json"
       },
-      body: postData
+      body: JSON.stringify({
+        action: "run",
+        data: {
+          image: g.image,
+          payload: {
+            runInstructions: {
+              buildCommands: g.build,
+              runCommand: g.run
+            },
+            files: [{
+              name: "main."+FileName,
+              content: command
+            }],
+            stdin: null
+          }
+        }
+      })
     });
 
     let raw = await response.text();
     if (!response.ok) {
-      throw new Error("glot.io HTTP " + response.status + "：" + raw.slice(0, 100));
+      let msg = raw.slice(0, 200);
+      try {
+        msg = JSON.parse(raw).error?.message || msg;
+      } catch (err) {}
+      throw new Error("glot.io HTTP " + response.status + "：" + msg);
     }
-    const data = JSON.parse(raw);
+    const data = JSON.parse(raw).data;
     return [
       `stdout:\n${data.stdout || "（无）"}`,
       `stderr:\n${data.stderr || "（无）"}`,
@@ -302,7 +339,7 @@ export class Code extends plugin {
   async wandboxRun(lang, command) {
     let langName = wandboxLang[lang];
     if (!langName) {
-      throw new Error("wandbox 不支持语言：" + lang + "（可在 config/code.yaml 切换 piston 后端）");
+      throw new Error("wandbox 不支持语言：" + lang + "（可在 config/code.yaml 切换 glot 后端）");
     }
 
     if (!wandboxList) {
